@@ -2,45 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f7ef">
-  <title>Wurgery · A little word surgery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f5fb">
+  <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
+  <title>Wurgery</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.mjs"></script>
 </head>
 <body>
-  <header class="topbar wrap">
-    <a class="brand" href="./" aria-label="Wurgery home"><span class="brand-mark">W</span> WURGERY</a>
-    <div class="header-note">A WORD GAME IN TWO SMALL OPERATIONS</div>
-    <div id="progress" class="progress">0 / 20 solved</div>
-  </header>
-  <main class="wrap">
-    <div class="intro"><div><p class="eyebrow">A LITTLE REARRANGING. A LITTLE REMOVING.</p><h1>A little word surgery<span>.</span></h1></div><div class="edition">THE STARTER COLLECTION<br><strong>20 curious transformations</strong></div></div>
-    <div class="game-layout">
-      <section class="operating-room" aria-label="Word surgery game">
-        <div class="card-heading"><span id="case-label" class="eyebrow">PUZZLE 01 / 20</span><button id="reset" class="reset" type="button">↺ Reset</button></div>
-        <div class="steps" aria-label="Operation progress"><span id="step-transplant" class="step active">🧩 <b>1</b> Transplant</span><span class="step-arrow">→</span><span id="step-excision" class="step">✂️ <b>2</b> Excise</span></div>
-        <div class="work-area">
-          <p class="table-label">THE OPERATING TABLE</p>
-          <div id="word-board" class="word-board" role="group" aria-label="Puzzle letters"></div>
-          <div class="selection-bar"><span id="selection-copy">Highlight a chunk to begin.</span><button id="clear-selection" type="button" hidden>Clear selection</button></div>
-          <p id="instruction" class="instruction">Highlight neighboring letters. Then drag the green chunk into a new gap.</p>
-          <p class="gesture-tip">Drag across letters to highlight, or click the first and last.<br><span id="fallback-tip">You can also click a green gap to move your selection.</span></p>
-        </div>
-        <button id="scalpel" class="scalpel locked" type="button" aria-label="Excise selected letters" aria-disabled="true"><span class="scalpel-icon">✂️</span><span><strong id="scalpel-title">The excision tray</strong><small id="scalpel-copy">First, give those letters a green transplant.</small></span><span class="tray-arrow">↓</span></button>
-        <div id="status" class="status" role="status" aria-live="polite"></div>
-        <div id="operation-log" class="operation-log" aria-label="Your operations"></div>
-        <div class="card-footer"><span id="footer-note"><span class="green-dot"></span> One move. One cut. One new word.</span><button id="try-cut" class="text-button" type="button" hidden>↶ Try another cut</button><button id="next-solved" class="primary-button" type="button" hidden>Next puzzle →</button></div>
-      </section>
-      <aside class="sidebar">
-        <section class="clue-card"><span class="eyebrow">A CLUE FOR YOUR NEW WORD</span><span class="clue-symbol" aria-hidden="true">“</span><h2 id="clue">Loading your first puzzle…</h2><div id="answer-slots" class="answer-slots" aria-label="Answer length"></div><p id="answer-length" class="clue-foot"></p></section>
-        <section class="how-card"><p class="eyebrow">THE TWO-STEP PROCEDURE</p><div class="how-row"><span class="how-icon green">🧩</span><div><strong>Transplant</strong><p>Move a continuous chunk.<br>Keep its letters in order.</p></div></div><div class="how-row"><span class="how-icon red">✂️</span><div><strong>Excise</strong><p>Drop a second chunk onto the scalpel. What's left must fit the clue.</p></div></div><p class="marker-note">A green underline follows your transplanted letters.</p></section>
-        <nav class="puzzle-nav" aria-label="Puzzle navigation"><button id="previous" aria-label="Previous puzzle" type="button">←</button><label for="puzzle-picker">Puzzle <select id="puzzle-picker" aria-label="Choose puzzle"></select></label><button id="next" aria-label="Next puzzle" type="button">→</button></nav>
-      </aside>
+  <main class="game">
+    <header class="header">
+      <h1>Wurgery</h1>
+      <button id="help-open" class="help-button" type="button" aria-label="How to play">?</button>
+    </header>
+    <nav class="puzzle-nav" aria-label="Puzzle navigation">
+      <button id="previous" type="button" aria-label="Previous puzzle">‹</button>
+      <label class="puzzle-label" for="puzzle-picker">Puzzle <select id="puzzle-picker" aria-label="Choose puzzle"></select><span id="puzzle-total"></span></label>
+      <button id="next" type="button" aria-label="Next puzzle">›</button>
+    </nav>
+    <p id="clue" class="clue">Loading…</p>
+    <section class="play-area" aria-label="Word puzzle">
+      <div class="steps" aria-label="Operation progress">
+        <span id="step-transplant" class="step active">🧩 Transplant</span>
+        <span id="step-excision" class="step">✂️ Excise</span>
+      </div>
+      <div id="word-board" class="word-board" role="group" aria-label="Puzzle letters"></div>
+      <div class="selection-bar">
+        <span id="selection-copy" class="sr-only" aria-live="polite"></span>
+        <button id="clear-selection" type="button" hidden>Clear selection</button>
+      </div>
+      <button id="scalpel" class="scalpel locked" type="button" aria-label="Excise selected letters" aria-disabled="true"><span class="scalpel-icon" aria-hidden="true">✂️</span><span>Excise</span></button>
+    </section>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <div class="actions">
+      <button id="reset" class="pill" type="button">Reset</button>
+      <button id="try-cut" class="pill" type="button" hidden>Undo cut</button>
+      <button id="next-solved" class="pill primary" type="button" hidden>Next →</button>
     </div>
-    <footer class="page-footer"><span>WORDS, WITH A TWIST.</span><span>No timer. Take a little time to tinker.</span></footer>
-    <noscript>This game needs JavaScript enabled to move and cut letters.</noscript>
+    <p id="progress" class="progress"></p>
+    <noscript>Enable JavaScript to play.</noscript>
   </main>
+  <dialog id="help" aria-labelledby="help-title">
+    <button id="help-close" class="help-close" type="button" aria-label="Close help">×</button>
+    <h2 id="help-title">A little word surgery.</h2>
+    <p><span class="help-green">🧩</span> Highlight a chunk. Drag it somewhere new.</p>
+    <p><span class="help-red">✂️</span> Highlight again. Drag down to cut.</p>
+    <p class="help-small">Tap the first and last letters to select. You can also tap a green gap to move, or the scalpel to cut.</p>
+  </dialog>
   <div id="drag-ghost" class="drag-ghost" aria-hidden="true" hidden></div>
 </body>
 </html>

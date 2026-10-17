@@ -17,7 +17,7 @@ its local HTML, CSS and JavaScript, with no build step or external services.
    and last letter. Drag that highlighted green chunk to a new gap.
 2. The moved letters keep a green underline. Highlight a second chunk and drag
    it onto the red ✂️ excision tray. The remaining word must match the clue.
-3. Reset is always available. After an incorrect cut, **Try another cut** keeps
+3. Reset is always available. After an incorrect cut, **Undo cut** keeps
    the transplant in place. Navigate between all 20 puzzles with the arrows or
    numbered picker. Solved progress is saved in this browser's local storage.
 
@@ -25,6 +25,11 @@ For an alternative to dragging, click a green insertion gap, then select the
 second chunk and click the scalpel. Keyboard users can select letters with
 Space/Enter, extend with Shift+Left/Right, and Tab to insertion gaps or the
 scalpel. Escape clears the current selection.
+
+The mobile layout takes visual inspiration from [Flipwords](https://github.com/dixelstuff/flipwords):
+a centered game, lavender background, white tiles and simple pill buttons. The
+main screen shows no answer length, chunk-size hints, operation log or tutorial.
+Optional instructions are behind **?**.
 
 The collection uses familiar answers and distinct transformations from 8–11
 letter starting words, each with a short clue and a verified two-operation

@@ -29,6 +29,7 @@ function availableMove(destination) {
 function renderBoard() {
   board.replaceChildren();
   board.className = `word-board phase-${state.phase}${drag ? ' dragging' : ''}`;
+  board.style.setProperty('--count', state.puzzle.source.length);
   const cutAway = drag && state.phase === 'transplant';
   const tokens = cutAway ? state.tokens.filter((_, i) => i < selection.start || i >= selection.end) : state.tokens;
   for (let i = 0; i <= tokens.length; i++) {
@@ -83,68 +84,54 @@ function selectByClick(index) {
 
 function render() {
   renderBoard();
-  const cutting = state.phase === 'excision', finished = ['solved','incorrect'].includes(state.phase);
-  $('case-label').textContent = `PUZZLE ${String(current + 1).padStart(2,'0')} / ${puzzles.length}`;
-  $('progress').textContent = `${puzzles.filter(p => solved.has(p.id)).length} / ${puzzles.length} solved`;
+  const cutting = state.phase === 'excision';
+  const solvedCount = puzzles.filter(p => solved.has(p.id)).length;
+  $('progress').textContent = `${solvedCount} / ${puzzles.length} solved`;
   $('step-transplant').className = `step ${state.phase === 'transplant' ? 'active' : 'done'}`;
   $('step-excision').className = `step ${cutting || state.phase === 'incorrect' ? 'cut-active' : state.phase === 'solved' ? 'done' : ''}`;
+  $('step-transplant').setAttribute('aria-current', state.phase === 'transplant' ? 'step' : 'false');
+  $('step-excision').setAttribute('aria-current', cutting ? 'step' : 'false');
   $('clue').textContent = state.puzzle.clue;
-  $('answer-slots').replaceChildren(...Array.from({length: state.puzzle.target.length}, () => {
-    const slot = document.createElement('span'); slot.className = 'answer-slot'; return slot;
-  }));
-  $('answer-slots').setAttribute('aria-label', `${state.puzzle.target.length} letter answer`);
-  $('answer-length').textContent = `${state.puzzle.target.length} LETTERS`;
-  $('selection-copy').replaceChildren();
-  if (selection) {
-    const strong = document.createElement('strong'); strong.textContent = `“${textOf(selectedChunk())}”`;
-    $('selection-copy').append(strong, cutting ? ' ready for the scalpel' : ' ready to move');
-  } else $('selection-copy').textContent = finished ? 'Your two operations are complete.' : cutting ? 'Highlight the chunk you want to remove.' : 'Highlight a chunk to begin.';
+  $('selection-copy').textContent = selection ? `Selected ${textOf(selectedChunk())}` : '';
   $('clear-selection').hidden = !selection;
-  $('instruction').textContent = state.phase === 'solved' ? 'Beautiful work. A completely different word.' : state.phase === 'incorrect' ? 'Not quite the word in the clue. Try another cut or reset.' : cutting ? 'Now highlight a chunk and drag it down to the red scalpel.' : 'Highlight neighboring letters. Then drag the green chunk into a new gap.';
-  $('fallback-tip').textContent = finished ? 'Reset is always here if you want to start again.' : cutting ? 'You can also click the scalpel to cut your selection.' : 'You can also click a green gap to move your selection.';
   $('scalpel').className = `scalpel${cutting ? '' : ' locked'}`;
   $('scalpel').setAttribute('aria-disabled', String(!cutting || !selection));
-  $('scalpel-title').textContent = state.phase === 'solved' ? 'Operation complete' : 'The excision tray';
-  $('scalpel-copy').textContent = cutting ? 'Drop your red chunk here to snip it away.' : state.phase === 'incorrect' ? 'Try another cut, or reset to change your transplant.' : finished ? 'Two small operations. A brand-new word.' : 'First, give those letters a green transplant.';
   $('status').textContent = message;
   $('status').className = `status ${messageKind}`;
-  const log = $('operation-log'); log.replaceChildren();
-  if (state.transplant) {
-    const row = document.createElement('p'); row.textContent = `🧩 Moved “${state.transplant.chunk}” → `;
-    const word = document.createElement('b'); word.textContent = state.transplant.after; row.append(word); log.append(row);
-  }
-  if (state.excision) {
-    const row = document.createElement('p'); row.textContent = `✂️ Removed “${state.excision.chunk}” → `;
-    const word = document.createElement('b'); word.textContent = state.excision.after; row.append(word); log.append(row);
-  }
   $('try-cut').hidden = state.phase !== 'incorrect';
   $('next-solved').hidden = state.phase !== 'solved';
-  $('next-solved').textContent = current === puzzles.length - 1 ? 'Back to the collection →' : 'Next puzzle →';
-  $('previous').disabled = current === 0; $('next').disabled = current === puzzles.length - 1;
-  const picker = $('puzzle-picker'); picker.replaceChildren(...puzzles.map((p,i) => {
-    const option = document.createElement('option'); option.value = i;
-    option.textContent = `${String(i+1).padStart(2,'0')}${solved.has(p.id) ? ' ✓' : ''}`; return option;
-  })); picker.value = current;
+  $('next-solved').textContent = current === puzzles.length - 1 ? 'Back to start' : 'Next →';
+  $('previous').disabled = current === 0;
+  $('next').disabled = current === puzzles.length - 1;
+  $('puzzle-total').textContent = `/ ${puzzles.length}`;
+  const picker = $('puzzle-picker');
+  picker.replaceChildren(...puzzles.map((p,i) => {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = `${i+1}${solved.has(p.id) ? ' ✓' : ''}`;
+    return option;
+  }));
+  picker.value = current;
 }
 
 function commitMove(destination) {
   if (!selection) return;
   try {
     state = transplant(state, selection.start, selection.end, destination);
-    selection = null; setMessage('🧩 Transplant placed. The green underline marks the letters you moved.');
+    selection = null; setMessage('');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
 }
 
 function commitExcision() {
   if (state.phase !== 'excision') return;
-  if (!selection) { setMessage('Highlight a chunk of letters first, then bring it to the scalpel.', 'error'); render(); return; }
+  if (!selection) { setMessage('Select a chunk first.', 'error'); render(); return; }
   try {
     state = excise(state, selection.start, selection.end); selection = null;
     if (state.phase === 'solved') {
       solved.add(state.puzzle.id); saveProgress();
-      setMessage(puzzles.every(p => solved.has(p.id)) ? '🌿 Collection complete. Twenty lovely little transformations.' : '🌿 That’s it! A successful bit of word surgery.', 'success');
-    } else setMessage('That word doesn’t match the clue. Try a different cut, or reset for a new transplant.', 'error');
+      setMessage(puzzles.every(p => solved.has(p.id)) ? 'Collection complete! 🌿' : 'Nicely done! 🌿', 'success');
+    } else setMessage('Not quite. Try another cut.', 'error');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
 }
@@ -216,11 +203,19 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape' && st
 $('clear-selection').addEventListener('click', () => {selection = null; render();});
 $('reset').addEventListener('click', () => loadPuzzle(current));
 $('scalpel').addEventListener('click', () => commitExcision());
-$('try-cut').addEventListener('click', () => {state = undoExcision(state); selection = null; setMessage('Choose a different chunk to excise. Your transplant is still in place.'); render();});
+$('try-cut').addEventListener('click', () => {state = undoExcision(state); selection = null; setMessage(''); render();});
 $('previous').addEventListener('click', () => loadPuzzle(current-1));
 $('next').addEventListener('click', () => loadPuzzle(current+1));
 $('next-solved').addEventListener('click', () => loadPuzzle((current+1)%puzzles.length));
 $('puzzle-picker').addEventListener('change', event => loadPuzzle(Number(event.target.value)));
+
+$('help-open').addEventListener('click', () => $('help').showModal());
+$('help-close').addEventListener('click', () => $('help').close());
+$('help').addEventListener('click', event => {
+  if (event.target !== $('help')) return;
+  const rect = $('help').getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) $('help').close();
+});
 
 try {
   const response = await fetch('./puzzles.json');
@@ -229,7 +224,7 @@ try {
   if (!puzzles.length) throw new Error('The puzzle collection is empty.');
   loadPuzzle(0);
 } catch (error) {
-  $('clue').textContent = 'The operating room is taking a moment.';
-  $('status').textContent = `Could not load the puzzles. Refresh to try again. ${error.message}`;
+  $('clue').textContent = '';
+  $('status').textContent = 'Couldn’t load puzzles. Try refreshing.';
   $('status').className = 'status error';
 }
