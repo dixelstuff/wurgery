@@ -35,10 +35,3 @@ export function excise(state, start, end) {
     start, end, chunk: textOf(state.tokens.slice(start, end)), before: textOf(state.tokens), after: answer
   }};
 }
-
-export function undoExcision(state) {
-  if (!['incorrect', 'solved'].includes(state.phase)) return state;
-  // Reconstruct through the same identity-preserving move rather than parsing text.
-  const move = state.transplant;
-  return transplant(newGame(state.puzzle), move.start, move.end, move.destination);
-}

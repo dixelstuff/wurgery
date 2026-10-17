@@ -21,7 +21,7 @@ body {
 button, select { font: inherit; color: inherit; touch-action: manipulation; }
 button { cursor: pointer; }
 button:disabled { cursor: default; }
-button:focus-visible, select:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
+button:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
 [hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .game {
@@ -36,21 +36,19 @@ button:focus-visible, select:focus-visible { outline: 3px solid #8e80bd; outline
 }
 .header { position: relative; width: 100%; }
 h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045em; margin: 0; }
-.help-button { position: absolute; right: 4px; top: 9px; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; background: transparent; color: var(--muted); font-size: 17px; font-weight: 600; }
+.help-button { position: absolute; right: 4px; top: 9px; width: 36px; height: 36px; border: 0; background: transparent; color: var(--muted); font-size: 17px; font-weight: 600; }
 .puzzle-nav { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; color: var(--muted); }
 .puzzle-nav button { width: 44px; height: 44px; background: transparent; border: 0; padding: 0; font-size: 29px; font-weight: 350; }
 .puzzle-nav button:disabled { opacity: .22; }
 .puzzle-label { display: flex; align-items: center; gap: 4px; font-size: 16px; }
-.puzzle-label select { min-width: 38px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
+.puzzle-label select { appearance: none; -webkit-appearance: none; outline: none; box-shadow: none; border-radius: 0; text-align: center; min-width: 28px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
+.puzzle-label select:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 #puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
 .clue { display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1.4; color: var(--muted); width: min(100%, 370px); min-height: 76px; margin: 16px 0 24px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
-.steps { display: flex; justify-content: center; gap: 9px; margin-bottom: 24px; }
-.step { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 650; color: var(--muted); background: #eeebf4; transition: background .18s, color .18s; }
-.step.active { background: var(--green-soft); color: var(--green); }
-.step.done { color: var(--green); background: transparent; }
-.step.done::after { content: '✓'; margin-left: 6px; font-size: 11px; }
-.step.cut-active { background: var(--red-soft); color: var(--red); }
+.instruction { display: flex; align-items: center; justify-content: center; min-height: 36px; margin: 0 0 24px; font-size: 15px; font-weight: 600; }
+.instruction.transplant { color: var(--green); }
+.instruction.excision { color: var(--red); }
 .word-board {
   --count: 11;
   --gap: 6px;
@@ -61,6 +59,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 44px;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -73,12 +72,6 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .phase-excision .letter.selected { background: var(--red-soft); border-color: var(--red); box-shadow: 0 8px 16px #bc4f541c; }
 .phase-solved .letter { border-color: var(--green); box-shadow: 0 4px 14px #23895b18; }
 .gap { position: relative; flex: 0 0 var(--gap); width: var(--gap); height: 84px; padding: 0; border: 0; background: transparent; touch-action: none; }
-.gap.available::after, .gap.drop-here::after { content: ''; position: absolute; top: 13px; bottom: 13px; left: calc(50% - 1px); width: 2px; background: #69b88f; border-radius: 3px; }
-.gap.available::before { content: '·'; position: absolute; top: -5px; left: calc(50% - 3px); font-size: 18px; color: var(--green); }
-.gap.available:hover::after, .gap.drop-here::after { top: 2px; bottom: 2px; background: var(--green); width: 3px; }
-.gap.drop-here::before { content: '↓'; position: absolute; top: -20px; left: calc(50% - 7px); color: var(--green); font-size: 22px; }
-.selection-bar { display: flex; align-items: center; justify-content: center; height: 44px; }
-#clear-selection { height: 40px; background: transparent; border: 0; padding: 0 12px; color: var(--muted); font-size: 12px; }
 .scalpel { display: inline-flex; width: min(230px, 72%); height: 86px; align-items: center; justify-content: center; gap: 12px; border: 1.5px dashed #d9a9ad; border-radius: 18px; background: var(--red-soft); color: var(--red); font-size: 15px; font-weight: 650; transition: transform .15s, background .15s; }
 .scalpel-icon { font-size: 26px; }
 .scalpel.locked { background: transparent; opacity: .48; cursor: default; }
@@ -99,7 +92,6 @@ dialog { width: min(370px, calc(100% - 36px)); padding: 30px 24px 24px; border: 
 dialog::backdrop { background: #27203355; }
 dialog h2 { margin: 12px 0 22px; font-size: 23px; letter-spacing: -.03em; }
 dialog p { line-height: 1.5; font-size: 15px; color: var(--muted); }
-.help-close { position: absolute; top: 9px; right: 12px; height: 40px; width: 40px; background: transparent; border: 0; color: var(--muted); font-size: 28px; }
 .help-small { font-size: 12px; margin-top: 23px; }
 @media (min-width: 700px) {
   .game { padding-top: clamp(52px, 10svh, 110px); }
@@ -120,7 +112,7 @@ dialog p { line-height: 1.5; font-size: 15px; color: var(--muted); }
 @media (max-height: 700px) {
   .game { padding-top: max(22px, env(safe-area-inset-top)); }
   .clue { margin-top: 6px; margin-bottom: 14px; min-height: 66px; }
-  .steps { margin-bottom: 14px; }
+  .instruction { margin-bottom: 14px; }
   .scalpel { height: 72px; }
   .status { margin-top: 10px; min-height: 36px; }
   .progress { margin-top: 20px; }

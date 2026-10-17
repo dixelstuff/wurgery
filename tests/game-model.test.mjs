@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {newGame, transplant, excise, undoExcision, textOf} from '../game/model.mjs';
+import {newGame, transplant, excise, textOf} from '../game/model.mjs';
 
 const puzzles = JSON.parse(readFileSync(new URL('../game/puzzles.json', import.meta.url)));
 
@@ -16,7 +16,6 @@ test('all curated puzzles can be solved using their two verified operations', ()
     assert.equal(complete.phase, 'solved');
     assert.equal(textOf(complete.tokens), puzzle.target);
     assert.ok(complete.tokens.some(t => t.moved));
-    assert.deepEqual(undoExcision(complete), moved);
     assert.deepEqual(initial, newGame(puzzle)); // Operations do not mutate earlier state.
   }
 });
@@ -42,7 +41,7 @@ test('operation order, boundaries, nonempty cuts and no-op moves are enforced', 
   assert.throws(() => excise(moved, 0, 4), /Leave/);
   const incorrect = excise(moved, 0, 1);
   assert.equal(incorrect.phase, 'incorrect');
-  assert.deepEqual(undoExcision(incorrect), moved);
+  assert.deepEqual(newGame(incorrect.puzzle), initial);
   assert.throws(() => excise(incorrect, 0, 1), /first/);
 });
 

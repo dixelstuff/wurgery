@@ -1,4 +1,4 @@
-import {newGame, transplant, excise, undoExcision, textOf} from './model.mjs';
+import {newGame, transplant, excise, textOf} from './model.mjs';
 
 const $ = id => document.getElementById(id);
 const board = $('word-board');
@@ -43,8 +43,6 @@ function renderBoard() {
     gap.setAttribute('aria-label', `Insert selected chunk at gap ${destination} in the remainder`);
     const available = destination >= 0 && availableMove(destination);
     gap.disabled = !available;
-    if (available) gap.classList.add('available');
-    if (drag?.destination === destination && available) gap.classList.add('drop-here');
     gap.addEventListener('click', () => { if (!gesture && available) commitMove(destination); });
     board.append(gap);
     if (i === tokens.length) continue;
@@ -87,18 +85,16 @@ function render() {
   const cutting = state.phase === 'excision';
   const solvedCount = puzzles.filter(p => solved.has(p.id)).length;
   $('progress').textContent = `${solvedCount} / ${puzzles.length} solved`;
-  $('step-transplant').className = `step ${state.phase === 'transplant' ? 'active' : 'done'}`;
-  $('step-excision').className = `step ${cutting || state.phase === 'incorrect' ? 'cut-active' : state.phase === 'solved' ? 'done' : ''}`;
-  $('step-transplant').setAttribute('aria-current', state.phase === 'transplant' ? 'step' : 'false');
-  $('step-excision').setAttribute('aria-current', cutting ? 'step' : 'false');
+  const finished = ['solved', 'incorrect'].includes(state.phase);
+  $('instruction').textContent = cutting ? 'excise a chunk' : 'transplant a chunk';
+  $('instruction').className = `instruction ${cutting ? 'excision' : 'transplant'}`;
+  $('instruction').style.visibility = finished ? 'hidden' : 'visible';
   $('clue').textContent = state.puzzle.clue;
   $('selection-copy').textContent = selection ? `Selected ${textOf(selectedChunk())}` : '';
-  $('clear-selection').hidden = !selection;
   $('scalpel').className = `scalpel${cutting ? '' : ' locked'}`;
   $('scalpel').setAttribute('aria-disabled', String(!cutting || !selection));
   $('status').textContent = message;
   $('status').className = `status ${messageKind}`;
-  $('try-cut').hidden = state.phase !== 'incorrect';
   $('next-solved').hidden = state.phase !== 'solved';
   $('next-solved').textContent = current === puzzles.length - 1 ? 'Back to start' : 'Next →';
   $('previous').disabled = current === 0;
@@ -131,7 +127,7 @@ function commitExcision() {
     if (state.phase === 'solved') {
       solved.add(state.puzzle.id); saveProgress();
       setMessage(puzzles.every(p => solved.has(p.id)) ? 'Collection complete! 🌿' : 'Nicely done! 🌿', 'success');
-    } else setMessage('Not quite. Try another cut.', 'error');
+    } else setMessage('Not quite. Reset and try again.', 'error');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
 }
@@ -181,7 +177,6 @@ board.addEventListener('pointermove', event => {
     let destination = tiles.findIndex(tile => event.clientX < tile.getBoundingClientRect().left + tile.getBoundingClientRect().width/2);
     if (destination < 0) destination = tiles.length;
     drag.destination = within ? destination : null;
-    board.querySelectorAll('.gap').forEach(gap => gap.classList.toggle('drop-here', within && Number(gap.dataset.destination) === destination && availableMove(destination)));
   } else {
     const rect = $('scalpel').getBoundingClientRect();
     drag.overTray = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
@@ -199,11 +194,15 @@ board.addEventListener('pointerup', event => {
   else render();
 });
 board.addEventListener('pointercancel', () => {cancelGesture(); render();});
+document.addEventListener('pointerdown', event => {
+  if (!state || !selection || gesture || board.contains(event.target)) return;
+  cancelGesture();
+  selection = null;
+  render();
+});
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && state) {cancelGesture(); selection = null; render();} });
-$('clear-selection').addEventListener('click', () => {selection = null; render();});
 $('reset').addEventListener('click', () => loadPuzzle(current));
-$('scalpel').addEventListener('click', () => commitExcision());
-$('try-cut').addEventListener('click', () => {state = undoExcision(state); selection = null; setMessage(''); render();});
+$('scalpel').addEventListener('click', () => { if (selection) commitExcision(); });
 $('previous').addEventListener('click', () => loadPuzzle(current-1));
 $('next').addEventListener('click', () => loadPuzzle(current+1));
 $('next-solved').addEventListener('click', () => loadPuzzle((current+1)%puzzles.length));
