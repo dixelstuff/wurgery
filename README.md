@@ -6,6 +6,12 @@ game always uses transplant first and excision second.
 
 ## Play the game — no spoilers
 
+Play online at **https://dixelstuff.github.io/wurgery/**. GitHub Pages can serve
+the `main` branch from `/` (the repository root); the root entry page opens the
+game in `game/`. No build step is needed.
+
+To run locally:
+
 ```sh
 python3 play.py
 ```
