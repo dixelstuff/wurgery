@@ -16,26 +16,16 @@ from wurgery.engine import Sequence, excisions, find_solutions, transplants
 # Editorial choices after exploring 80+ familiar starting words. Clues define
 # the intended answer; other dictionary outcomes are not accepted by the game.
 CHOICES = [
-    ("HOSPITAL", "SHOP", "A place to browse, buy, and perhaps spend too much."),
-    ("WONDERFUL", "WOLF", "A wild relative of the dog, famous for its howl."),
-    ("SNOWFLAKE", "FLOW", "What a river does when nothing blocks its way."),
-    ("STRAWBERRY", "STAR", "A tiny-looking light with a very big place in the sky."),
-    ("HEARTBEAT", "EARTH", "Our home, all eight billion of us."),
-    ("TOMORROW", "MOTOR", "The machine that gets things turning."),
-    ("LANDSCAPE", "PLANE", "Your ride above the clouds."),
-    ("BLUEPRINT", "BELT", "It goes around your waist and keeps things up."),
-    ("CHAMPION", "COIN", "Small change that jingles in your pocket."),
-    ("CHAMELEON", "LEMON", "A yellow fruit with a sharp personality."),
-    ("RASPBERRY", "SPRAY", "Liquid sent out as a cloud of tiny drops."),
-    ("SATELLITE", "STEEL", "The tough metal in skyscrapers and kitchen knives."),
-    ("BIRTHDAY", "DAIRY", "The food group that brings you milk, cheese, and yogurt."),
-    ("FIREWORKS", "FORK", "The dinner-table tool with little prongs."),
-    ("WILDERNESS", "NEWS", "What's happening, hot off the press."),
-    ("SANDCASTLE", "SALT", "A pinch of this makes dinner taste better."),
-    ("PORCELAIN", "CORN", "Golden kernels that grow together on a cob."),
-    ("SILHOUETTE", "HOUSE", "Four walls, a roof, and a place to call home."),
-    ("LABYRINTH", "BATH", "A warm soak at the end of a long day."),
-    ("TURQUOISE", "QUOTE", "Someone else's exact words, borrowed in your writing."),
+    ("RAINBOWS", "BRAIN", "Your body's thinking centre."),
+    ("FOOTBALL", "BALLOT", "The paper you mark to cast your vote."),
+    ("SAPPHIRE", "SHAPE", "A circle, a square, or a triangle."),
+    ("WRESTLING", "WINGS", "What birds spread before taking off."),
+    ("ADVENTURE", "NATURE", "The world of forests, rivers, and wild things."),
+    ("SUNFLOWER", "OWNER", "The person something belongs to."),
+    ("CARTWHEEL", "CHART", "A picture that turns numbers into a story."),
+    ("PARACHUTE", "TEACH", "Help someone learn something new."),
+    ("SINGULAR", "SUGAR", "A sweet addition to tea."),
+    ("BOUNDARY", "AROUND", "In a circle, or somewhere nearby."),
 ]
 
 
@@ -44,11 +34,11 @@ def build_pack():
     puzzles = []
     for number, (source, target, clue) in enumerate(CHOICES, 1):
         # Full search ensures dictionary validity and the single-excision rule.
-        solution = next(s for s in find_solutions(source, dictionary) if s.target == target)
+        solution = next(s for s in find_solutions(source, dictionary, min_length=5, min_chunk_length=2) if s.target == target)
         assert any(s.first.kind == "transplant" for s in solution.sequences)
         choices = []
-        for move in transplants(source):
-            for cut in excisions(move.after):
+        for move in transplants(source, 2):
+            for cut in excisions(move.after, 2):
                 if cut.after != target:
                     continue
                 width = move.end - move.start
@@ -59,7 +49,7 @@ def build_pack():
         _, witness, retained = min(choices, key=lambda choice: choice[0])
         assert witness.verify(source, target)
         puzzles.append({
-            "id": f"wurgery-{number:02}", "source": source, "target": target, "clue": clue,
+            "id": f"wurgery-chunks2-{number:02}", "source": source, "target": target, "clue": clue,
             "frequency": zipf_frequency(target.lower(), "en"),
             "visual_similarity": round(SequenceMatcher(None, source, target).ratio(), 3),
             "retained_transplanted_letters": retained,

@@ -43,7 +43,7 @@ def main():
     if submitted:
         try:
             with st.spinner("Exploring both operation orders…"):
-                solutions = find_solutions(source, dictionary.words, min_length=int(minimum))
+                solutions = find_solutions(source, dictionary.words, min_length=int(minimum), min_chunk_length=2)
                 rows = result_rows(solutions)
         except ValueError as error:
             st.error(str(error))

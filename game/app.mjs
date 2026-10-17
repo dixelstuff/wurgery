@@ -1,14 +1,14 @@
-import {newGame, transplant, excise, textOf} from './model.mjs';
+import {newGame, transplant, excise, textOf} from './model.mjs?v=chunks2';
 
 const $ = id => document.getElementById(id);
 const board = $('word-board');
 let puzzles = [], current = 0, state, selection = null, gesture = null, drag = null;
 let solved = new Set();
 let message = '', messageKind = '';
-try { solved = new Set(JSON.parse(localStorage.getItem('wurgery-solved-v1') || '[]')); } catch {}
+try { solved = new Set(JSON.parse(localStorage.getItem('wurgery-solved-chunks2') || '[]')); } catch {}
 
 function saveProgress() {
-  try { localStorage.setItem('wurgery-solved-v1', JSON.stringify([...solved])); } catch {}
+  try { localStorage.setItem('wurgery-solved-chunks2', JSON.stringify([...solved])); } catch {}
 }
 
 function loadPuzzle(index) {
@@ -20,6 +20,7 @@ function loadPuzzle(index) {
 
 function setMessage(text, kind = '') { message = text; messageKind = kind; }
 function selectedChunk() { return selection ? state.tokens.slice(selection.start, selection.end) : []; }
+function validSelection() { return selection && selection.end - selection.start >= 2; }
 
 function availableMove(destination) {
   if (!selection || state.phase !== 'transplant') return false;
@@ -30,30 +31,44 @@ function renderBoard() {
   board.replaceChildren();
   board.className = `word-board phase-${state.phase}${drag ? ' dragging' : ''}`;
   board.style.setProperty('--count', state.puzzle.source.length);
-  const cutAway = drag && state.phase === 'transplant';
-  const tokens = cutAway ? state.tokens.filter((_, i) => i < selection.start || i >= selection.end) : state.tokens;
+  const moving = drag && state.phase === 'transplant';
+  let tokens = state.tokens;
+  if (moving) {
+    tokens = state.tokens.filter((_, i) => i < selection.start || i >= selection.end);
+    if (drag.destination !== null) {
+      const preview = selectedChunk().map(token => ({...token, preview: true}));
+      tokens = [...tokens.slice(0, drag.destination), ...preview, ...tokens.slice(drag.destination)];
+    }
+  }
   for (let i = 0; i <= tokens.length; i++) {
     const gap = document.createElement('button'); gap.type = 'button'; gap.className = 'gap';
     let destination = i;
-    if (selection && !cutAway) {
+    if (selection && !moving) {
       if (i > selection.start && i < selection.end) destination = -1;
       else if (i >= selection.end) destination = i - (selection.end - selection.start);
     }
     gap.dataset.destination = destination;
     gap.setAttribute('aria-label', `Insert selected chunk at gap ${destination} in the remainder`);
-    const available = destination >= 0 && availableMove(destination);
+    const available = !moving && destination >= 0 && availableMove(destination);
     gap.disabled = !available;
     gap.addEventListener('click', () => { if (!gesture && available) commitMove(destination); });
     board.append(gap);
     if (i === tokens.length) continue;
     const token = tokens[i];
-    const index = cutAway ? state.tokens.findIndex(t => t.id === token.id) : i;
+    if (token.preview) {
+      const preview = document.createElement('span');
+      preview.className = 'letter insertion-preview';
+      preview.textContent = token.letter;
+      preview.setAttribute('aria-hidden', 'true');
+      board.append(preview);
+      continue;
+    }
+    const index = moving ? state.tokens.findIndex(t => t.id === token.id) : i;
     const letter = document.createElement('button'); letter.type = 'button';
     letter.className = 'letter'; letter.textContent = token.letter; letter.dataset.index = index;
-    letter.setAttribute('aria-label', `Letter ${token.letter}, position ${index + 1}${token.moved ? ', transplanted' : ''}`);
-    const selected = !cutAway && selection && index >= selection.start && index < selection.end;
+    letter.setAttribute('aria-label', `Letter ${token.letter}, position ${index + 1}`);
+    const selected = !moving && selection && index >= selection.start && index < selection.end;
     letter.setAttribute('aria-pressed', String(Boolean(selected)));
-    if (token.moved) letter.classList.add('moved');
     if (selected) letter.classList.add('selected');
     letter.disabled = !['transplant','excision'].includes(state.phase);
     // Keyboard-generated clicks have detail 0; pointer selection is handled below.
@@ -86,13 +101,13 @@ function render() {
   const solvedCount = puzzles.filter(p => solved.has(p.id)).length;
   $('progress').textContent = `${solvedCount} / ${puzzles.length} solved`;
   const finished = ['solved', 'incorrect'].includes(state.phase);
-  $('instruction').textContent = cutting ? 'excise a chunk' : 'transplant a chunk';
+  $('instruction').textContent = cutting ? 'excise a chunk ↓' : '← transplant a chunk →';
   $('instruction').className = `instruction ${cutting ? 'excision' : 'transplant'}`;
-  $('instruction').style.visibility = finished ? 'hidden' : 'visible';
+  $('instruction').style.visibility = finished || !validSelection() ? 'hidden' : 'visible';
   $('clue').textContent = state.puzzle.clue;
   $('selection-copy').textContent = selection ? `Selected ${textOf(selectedChunk())}` : '';
   $('scalpel').className = `scalpel${cutting ? '' : ' locked'}`;
-  $('scalpel').setAttribute('aria-disabled', String(!cutting || !selection));
+  $('scalpel').setAttribute('aria-disabled', String(!cutting || !validSelection()));
   $('status').textContent = message;
   $('status').className = `status ${messageKind}`;
   $('next-solved').hidden = state.phase !== 'solved';
@@ -142,9 +157,13 @@ board.addEventListener('pointerdown', event => {
   const tile = event.target.closest('.letter'); if (!tile) return;
   event.preventDefault();
   const index = Number(tile.dataset.index);
-  const inside = selection && index >= selection.start && index < selection.end;
+  const inside = validSelection() && index >= selection.start && index < selection.end;
   const anchor = selection?.anchor ?? index;
-  gesture = {pointer: event.pointerId, mode: inside ? 'pending-drag' : 'select', x: event.clientX, y: event.clientY, anchor, index};
+  const selectedTiles = [...board.querySelectorAll('.letter.selected')];
+  const first = selectedTiles[0]?.getBoundingClientRect();
+  const last = selectedTiles.at(-1)?.getBoundingClientRect();
+  const grabOffset = first && last ? event.clientX - (first.left + last.right) / 2 : 0;
+  gesture = {pointer: event.pointerId, mode: inside ? 'pending-drag' : 'select', x: event.clientX, y: event.clientY, anchor, index, grabOffset};
   board.setPointerCapture(event.pointerId);
   if (!inside) { selection = {start: Math.min(anchor,index), end: Math.max(anchor,index)+1, anchor}; setMessage(''); render(); }
 });
@@ -164,19 +183,28 @@ board.addEventListener('pointermove', event => {
   }
   if (!drag && Math.hypot(event.clientX-gesture.x,event.clientY-gesture.y) < 7) return;
   if (!drag) {
-    drag = {destination: null, overTray: false};
+    const width = board.querySelector('.letter').getBoundingClientRect().width;
+    const gap = board.querySelector('.gap').getBoundingClientRect().width;
+    const first = board.querySelector('.letter').getBoundingClientRect();
+    const count = selection.end - selection.start;
+    drag = {destination: state.phase === 'transplant' ? selection.start : null, overTray: false,
+      slotOrigin: first.left + (count * width + (count - 1) * gap) / 2,
+      stride: width + gap, grabOffset: gesture.grabOffset};
     const ghost = $('drag-ghost'); ghost.className = `drag-ghost${state.phase === 'excision' ? ' red' : ''}`;
     ghost.replaceChildren(...selectedChunk().map(token => {const span = document.createElement('span'); span.textContent = token.letter; return span;}));
     ghost.hidden = false; renderBoard();
   }
-  const ghost = $('drag-ghost'); ghost.style.left = `${event.clientX}px`; ghost.style.top = `${event.clientY}px`;
+  const ghost = $('drag-ghost'); ghost.style.left = `${event.clientX - (state.phase === 'transplant' ? drag.grabOffset : 0)}px`; ghost.style.top = `${event.clientY}px`;
   if (state.phase === 'transplant') {
     const rect = board.getBoundingClientRect();
     const within = event.clientY >= rect.top-30 && event.clientY <= rect.bottom+30 && event.clientX >= rect.left-20 && event.clientX <= rect.right+20;
-    const tiles = [...board.querySelectorAll('.letter')];
-    let destination = tiles.findIndex(tile => event.clientX < tile.getBoundingClientRect().left + tile.getBoundingClientRect().width/2);
-    if (destination < 0) destination = tiles.length;
-    drag.destination = within ? destination : null;
+    const maximum = state.tokens.length - (selection.end - selection.start);
+    const candidate = Math.max(0, Math.min(maximum, Math.round((event.clientX - drag.grabOffset - drag.slotOrigin) / drag.stride)));
+    const destination = within ? candidate : null;
+    if (drag.destination !== destination) {
+      drag.destination = destination;
+      renderBoard();
+    }
   } else {
     const rect = $('scalpel').getBoundingClientRect();
     drag.overTray = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
@@ -196,6 +224,7 @@ board.addEventListener('pointerup', event => {
 board.addEventListener('pointercancel', () => {cancelGesture(); render();});
 document.addEventListener('pointerdown', event => {
   if (!state || !selection || gesture || board.contains(event.target)) return;
+  if (state.phase === 'excision' && event.target.closest('#scalpel')) return;
   cancelGesture();
   selection = null;
   render();
@@ -208,16 +237,9 @@ $('next').addEventListener('click', () => loadPuzzle(current+1));
 $('next-solved').addEventListener('click', () => loadPuzzle((current+1)%puzzles.length));
 $('puzzle-picker').addEventListener('change', event => loadPuzzle(Number(event.target.value)));
 
-$('help-open').addEventListener('click', () => $('help').showModal());
-$('help-close').addEventListener('click', () => $('help').close());
-$('help').addEventListener('click', event => {
-  if (event.target !== $('help')) return;
-  const rect = $('help').getBoundingClientRect();
-  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) $('help').close();
-});
 
 try {
-  const response = await fetch('./puzzles.json');
+  const response = await fetch('./puzzles.json?v=chunks2');
   if (!response.ok) throw new Error('The puzzle collection could not be loaded.');
   puzzles = await response.json();
   if (!puzzles.length) throw new Error('The puzzle collection is empty.');

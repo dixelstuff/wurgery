@@ -1,7 +1,7 @@
 # Wurgery — Python Puzzle Explorer
 
 An exhaustive explorer for a word puzzle mechanic, plus a playable local game
-with 20 hand-picked puzzles. The explorer searches both operation orders; the
+with 10 hand-picked puzzles. The explorer searches both operation orders; the
 game always uses transplant first and excision second.
 
 ## Play the game — no spoilers
@@ -19,26 +19,28 @@ python3 play.py
 Open http://127.0.0.1:8502. The game uses only Python's standard library to serve
 its local HTML, CSS and JavaScript, with no build step or external services.
 
-1. Highlight neighboring letters by dragging across them, or clicking the first
-   and last letter. Drag that highlighted green chunk to a new gap.
-2. The moved letters keep a green underline. Highlight a second chunk and drag
-   it onto the red ✂️ excision tray. The remaining word must match the clue.
+1. Highlight at least two neighboring letters by dragging across them, or
+   tapping the first and last. Drag the chunk to a new position; a translucent
+   preview shows exactly where it will be inserted.
+2. Highlight a second chunk of at least two letters. Drag it onto ✂️ or tap
+   the scissors to cut. The remaining word must match the clue.
 3. Tap outside the letters to clear a selection. **Reset** always starts the
    whole puzzle again, including after a wrong answer. Navigate with the arrows
    or numbered picker. Solved progress is saved in this browser's local storage.
 
-The instruction changes from **transplant a chunk** to **excise a chunk** after
-the move. There are no visible insertion markers or partial resets. Keyboard
+The action prompt appears only while a valid chunk is selected: left/right
+arrows for transplant, then a downward arrow for excision. There are no
+permanent transplanted-letter markers, help modal or partial resets. Keyboard
 users can select with Space/Enter, extend with Shift+Left/Right, and Tab to
 insertion positions or the scalpel. Escape clears the current selection.
 
 The mobile layout takes visual inspiration from [Flipwords](https://github.com/dixelstuff/flipwords):
 a centered game, lavender background, white tiles and simple pill buttons. The
 main screen shows no answer length, chunk-size hints, operation log or tutorial.
-Optional instructions are behind **?**.
+There is no instructions modal.
 
-The collection uses familiar answers and distinct transformations from 8–11
-letter starting words, each with a short clue and a verified two-operation
+The collection has 10 puzzles with starting words no longer than nine letters
+and familiar answers of 5–7 letters, each with a short clue and a verified two-operation
 witness. It never displays a suggested answer or solution before you solve it.
 Any legal sequence to the intended answer is accepted. The puzzle data and
 curation script contain spoilers internally; they are not needed to play.
@@ -106,10 +108,10 @@ python scripts/fetch_scowl.py
 
 ## Exact operation rules
 
-A transplant cuts a nonempty contiguous substring and inserts it at any gap in
+A transplant cuts a contiguous substring of at least two letters and inserts it at any gap in
 the remaining string, preserving its internal order. A move is rejected if the
 result equals the input, even when different letter occurrences were moved.
-An excision removes a nonempty contiguous substring. Each operation acts on the
+An excision removes a contiguous substring of at least two letters. Each operation acts on the
 string produced by the preceding operation. Intermediate strings need not be
 dictionary words, and the starting word need not be in the dictionary.
 
@@ -132,9 +134,11 @@ operation's input. A transplant destination is a gap in the remainder **after**
 removing its chunk: gap zero is before the first letter, and gap `len(remainder)`
 is after the last letter.
 
-## GIGANTIC demonstration
+## Original-mechanic GIGANTIC demonstration
 
-The default dictionary and minimum length four produce these eight targets:
+This archived demonstration allows one-letter chunks (`min_chunk_length=1`).
+The current game and explorer require at least two letters per operation.
+With the original rule and minimum answer length four, these eight targets result:
 
 | Target | Word frequency score | Order |
 | --- | ---: | --- |
@@ -163,7 +167,7 @@ from wurgery.engine import find_solutions
 from wurgery.scoring import result_rows
 
 dictionary = load_dictionary(["wordlists"])
-for row in result_rows(find_solutions("GIGANTIC", dictionary.words)):
+for row in result_rows(find_solutions("GIGANTIC", dictionary.words, min_chunk_length=1)):
     print(row)
 ```
 
@@ -174,7 +178,7 @@ python -m pytest -q
 ```
 
 The tests compare the complete results, separately for each operation order,
-against an independent reference for **all 374 nonempty binary strings through
+against an independent reference, for minimum chunk sizes one and two, for **all 374 nonempty binary strings through
 length seven and ternary strings through length four**. The reference uses
 deletion masks and swaps of adjacent blocks, rather than the engine's
 cut-and-insert loops. Adjacent-block swaps enumerate the same transplant

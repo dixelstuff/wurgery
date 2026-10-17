@@ -1,14 +1,14 @@
 /** Pure game rules. Letter identities survive moves, including repeated letters. */
 export function newGame(puzzle) {
-  return { puzzle, tokens: [...puzzle.source].map((letter, id) => ({letter, id, moved: false})),
+  return { puzzle, tokens: [...puzzle.source].map((letter, id) => ({letter, id})),
     phase: 'transplant', transplant: null, excision: null };
 }
 
 export const textOf = tokens => tokens.map(token => token.letter).join('');
 
 function validRange(tokens, start, end) {
-  if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 || start >= end || end > tokens.length)
-    throw new Error('Choose a nonempty, continuous chunk of letters.');
+  if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 || end - start < 2 || end > tokens.length)
+    throw new Error('Select at least two letters.');
 }
 
 export function transplant(state, start, end, destination) {
@@ -17,7 +17,7 @@ export function transplant(state, start, end, destination) {
   const remainder = [...state.tokens.slice(0, start), ...state.tokens.slice(end)];
   if (!Number.isInteger(destination) || destination < 0 || destination > remainder.length)
     throw new Error('Drop the chunk into a gap between letters.');
-  const chunk = state.tokens.slice(start, end).map(token => ({...token, moved: true}));
+  const chunk = state.tokens.slice(start, end).map(token => ({...token}));
   const tokens = [...remainder.slice(0, destination), ...chunk, ...remainder.slice(destination)];
   if (textOf(tokens) === textOf(state.tokens)) throw new Error('That leaves the word unchanged. Try a different gap.');
   return {...state, tokens, phase: 'excision', transplant: {

@@ -7,14 +7,13 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.mjs"></script>
+  <link rel="stylesheet" href="style.css?v=chunks2">
+  <script type="module" src="app.mjs?v=chunks2"></script>
 </head>
 <body>
   <main class="game">
     <header class="header">
       <h1>Wurgery</h1>
-      <button id="help-open" class="help-button" type="button" aria-label="How to play">?</button>
     </header>
     <nav class="puzzle-nav" aria-label="Puzzle navigation">
       <button id="previous" type="button" aria-label="Previous puzzle">‹</button>
@@ -23,7 +22,7 @@
     </nav>
     <p id="clue" class="clue">Loading…</p>
     <section class="play-area" aria-label="Word puzzle">
-      <p id="instruction" class="instruction transplant" aria-live="polite">transplant a chunk</p>
+      <p id="instruction" class="instruction transplant" aria-live="polite" style="visibility:hidden">← transplant a chunk →</p>
       <div id="word-board" class="word-board" role="group" aria-label="Puzzle letters"></div>
       <span id="selection-copy" class="sr-only" aria-live="polite"></span>
       <button id="scalpel" class="scalpel locked" type="button" aria-label="Excise selected letters" aria-disabled="true"><span class="scalpel-icon" aria-hidden="true">✂️</span></button>
@@ -36,13 +35,6 @@
     <p id="progress" class="progress"></p>
     <noscript>Enable JavaScript to play.</noscript>
   </main>
-  <dialog id="help" aria-labelledby="help-title">
-    <h2 id="help-title">A little word surgery.</h2>
-    <p><span class="help-green">🧩</span> Highlight a chunk. Drag it somewhere new.</p>
-    <p><span class="help-red">✂️</span> Highlight again. Drag down to cut.</p>
-    <p class="help-small">Tap the first and last letters to select. Tap off the letters to deselect.</p>
-    <button id="help-close" class="pill" type="button">Done</button>
-  </dialog>
   <div id="drag-ghost" class="drag-ghost" aria-hidden="true" hidden></div>
 </body>
 </html>

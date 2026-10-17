@@ -36,7 +36,6 @@ button:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
 }
 .header { position: relative; width: 100%; }
 h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045em; margin: 0; }
-.help-button { position: absolute; right: 4px; top: 9px; width: 36px; height: 36px; border: 0; background: transparent; color: var(--muted); font-size: 17px; font-weight: 600; }
 .puzzle-nav { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; color: var(--muted); }
 .puzzle-nav button { width: 44px; height: 44px; background: transparent; border: 0; padding: 0; font-size: 29px; font-weight: 350; }
 .puzzle-nav button:disabled { opacity: .22; }
@@ -44,7 +43,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .puzzle-label select { appearance: none; -webkit-appearance: none; outline: none; box-shadow: none; border-radius: 0; text-align: center; min-width: 28px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
 .puzzle-label select:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 #puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
-.clue { display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1.4; color: var(--muted); width: min(100%, 370px); min-height: 76px; margin: 16px 0 24px; padding: 0 8px; text-wrap: balance; }
+.clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 96px; margin: 16px 0 24px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
 .instruction { display: flex; align-items: center; justify-content: center; min-height: 36px; margin: 0 0 24px; font-size: 15px; font-weight: 600; }
 .instruction.transplant { color: var(--green); }
@@ -66,8 +65,6 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
   touch-action: none;
 }
 .letter { position: relative; flex: 0 0 var(--tile); width: var(--tile); height: 68px; padding: 0; background: #fff; border: 1.5px solid var(--border); border-radius: 9px; font-size: clamp(18px, 5vw, 29px); font-weight: 750; line-height: 1; box-shadow: 0 6px 14px #2720330d; cursor: crosshair; touch-action: none; transition: transform .12s, background .12s, border-color .12s; }
-.letter.moved { border-color: #77b998; }
-.letter.moved::after { content: ''; position: absolute; bottom: 6px; left: 5px; right: 5px; height: 3px; background: var(--green); border-radius: 3px; }
 .letter.selected { background: var(--green-soft); border-color: var(--green); transform: translateY(-4px); box-shadow: 0 8px 16px #23895b1c; cursor: grab; }
 .phase-excision .letter.selected { background: var(--red-soft); border-color: var(--red); box-shadow: 0 8px 16px #bc4f541c; }
 .phase-solved .letter { border-color: var(--green); box-shadow: 0 4px 14px #23895b18; }
@@ -88,16 +85,10 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .drag-ghost.red { border-color: #cf9399; background: #f9e5e6f2; }
 .drag-ghost.red span { color: var(--red); }
 .dragging .letter { cursor: grabbing; }
-dialog { width: min(370px, calc(100% - 36px)); padding: 30px 24px 24px; border: 0; border-radius: 24px; background: #fff; color: var(--ink); box-shadow: 0 18px 48px #27203338; }
-dialog::backdrop { background: #27203355; }
-dialog h2 { margin: 12px 0 22px; font-size: 23px; letter-spacing: -.03em; }
-dialog p { line-height: 1.5; font-size: 15px; color: var(--muted); }
-.help-small { font-size: 12px; margin-top: 23px; }
 @media (min-width: 700px) {
   .game { padding-top: clamp(52px, 10svh, 110px); }
   h1 { font-size: 60px; }
-  .help-button { right: 64px; top: 17px; }
-  .clue { margin-bottom: 30px; font-size: 19px; }
+  .clue { margin-bottom: 30px; font-size: 28px; }
   .letter { height: 78px; border-radius: 11px; }
   .word-board { --gap: 8px; min-height: 94px; }
   .gap { height: 94px; }
@@ -105,16 +96,16 @@ dialog p { line-height: 1.5; font-size: 15px; color: var(--muted); }
 @media (max-width: 360px) {
   .game { padding-top: max(28px, env(safe-area-inset-top)); }
   h1 { font-size: 44px; }
-  .help-button { right: 0; }
-  .clue { font-size: 16px; margin-top: 10px; margin-bottom: 20px; }
+  .clue { font-size: 21px; margin-top: 10px; margin-bottom: 20px; }
   .letter { height: 62px; border-radius: 7px; }
 }
 @media (max-height: 700px) {
   .game { padding-top: max(22px, env(safe-area-inset-top)); }
-  .clue { margin-top: 6px; margin-bottom: 14px; min-height: 66px; }
+  .clue { margin-top: 6px; margin-bottom: 14px; min-height: 86px; }
   .instruction { margin-bottom: 14px; }
   .scalpel { height: 72px; }
   .status { margin-top: 10px; min-height: 36px; }
   .progress { margin-top: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.letter.insertion-preview { display: grid; place-items: center; background: var(--green-soft); color: var(--green); opacity: .65; border: 1.5px dashed var(--green); box-shadow: none; pointer-events: none; }

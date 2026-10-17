@@ -7,31 +7,33 @@ import pytest
 from wurgery.engine import Operation, find_solutions, transplants
 
 
-def reference_deletions(text):
+def reference_deletions(text, minimum=1):
     results = set()
     for mask in product((False, True), repeat=len(text)):
         removed = [i for i, bit in enumerate(mask) if bit]
-        if removed and removed == list(range(removed[0], removed[-1] + 1)):
+        if len(removed) >= minimum and removed == list(range(removed[0], removed[-1] + 1)):
             results.add("".join(c for c, delete in zip(text, mask) if not delete))
     return results
 
 
-def reference_moves(text):
+def reference_moves(text, minimum=1):
     # Moving a block is equivalent to swapping two adjacent nonempty blocks.
     results = set()
     for a in range(len(text)):
         for b in range(a + 1, len(text)):
             for c in range(b + 1, len(text) + 1):
+                if max(b-a, c-b) < minimum:
+                    continue
                 changed = text[:a] + text[b:c] + text[a:b] + text[c:]
                 if changed != text:
                     results.add(changed)
     return results
 
 
-def reference_targets(text):
+def reference_targets(text, minimum=1):
     deletion_only = reference_deletions(text)
-    transplant_first = set().union(*(reference_deletions(s) for s in reference_moves(text)))
-    excision_first = set().union(*(reference_moves(s) for s in deletion_only))
+    transplant_first = set().union(*(reference_deletions(s, minimum) for s in reference_moves(text, minimum)))
+    excision_first = set().union(*(reference_moves(s, minimum) for s in reference_deletions(text, minimum)))
     return {
         "transplant → excision": transplant_first - deletion_only - {""},
         "excision → transplant": excision_first - deletion_only - {""},
@@ -56,15 +58,16 @@ def independent_replay(op):
     return result
 
 
+@pytest.mark.parametrize("minimum", [1, 2])
 @pytest.mark.parametrize("alphabet,max_length", [("AB", 7), ("ABC", 4)])
-def test_exhaustive_completeness_and_witnesses(alphabet, max_length):
+def test_exhaustive_completeness_and_witnesses(alphabet, max_length, minimum):
     dictionary = {"".join(chars) for n in range(1, max_length)
                   for chars in product(alphabet, repeat=n)}
     for n in range(1, max_length + 1):
         for chars in product(alphabet, repeat=n):
             source = "".join(chars)
-            expected = reference_targets(source)
-            solutions = find_solutions(source, dictionary, min_length=1)
+            expected = reference_targets(source, minimum)
+            solutions = find_solutions(source, dictionary, min_length=1, min_chunk_length=minimum)
             actual = {order: set() for order in expected}
             assert len({s.target for s in solutions}) == len(solutions)
             for solution in solutions:
@@ -72,6 +75,8 @@ def test_exhaustive_completeness_and_witnesses(alphabet, max_length):
                 assert solution.target not in reference_deletions(source)
                 for seq in solution.sequences:
                     assert {seq.first.kind, seq.second.kind} == {"transplant", "excision"}
+                    assert seq.first.end - seq.first.start >= minimum
+                    assert seq.second.end - seq.second.start >= minimum
                     assert seq.first.before == source
                     assert independent_replay(seq.first) == seq.second.before
                     assert independent_replay(seq.second) == solution.target
@@ -112,3 +117,9 @@ def test_invalid_source(source):
 def test_invalid_minimum(minimum):
     with pytest.raises(ValueError):
         find_solutions("ABC", {"A"}, minimum)
+
+
+@pytest.mark.parametrize("minimum", [0, -1, 2.5, True])
+def test_invalid_chunk_minimum(minimum):
+    with pytest.raises(ValueError):
+        find_solutions("ABCD", {"AB"}, min_chunk_length=minimum)

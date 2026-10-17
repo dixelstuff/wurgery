@@ -87,17 +87,17 @@ class Solution:
     sequences: tuple[Sequence, ...]
 
 
-def excisions(word: str) -> Iterator[Operation]:
+def excisions(word: str, min_chunk_length: int = 1) -> Iterator[Operation]:
     for start in range(len(word)):
-        for end in range(start + 1, len(word) + 1):
+        for end in range(start + min_chunk_length, len(word) + 1):
             yield Operation("excision", word, word[:start] + word[end:], start, end)
 
 
-def transplants(word: str) -> Iterator[Operation]:
+def transplants(word: str, min_chunk_length: int = 1) -> Iterator[Operation]:
     # Equal output strings share the same possible second operations, so one
     # representative is sufficient, even when repeated letters create aliases.
     seen: set[str] = set()
-    for length in range(1, len(word) + 1):
+    for length in range(min_chunk_length, len(word) + 1):
         for start in range(len(word) - length + 1):
             end = start + length
             chunk = word[start:end]
@@ -109,10 +109,13 @@ def transplants(word: str) -> Iterator[Operation]:
                     yield Operation("transplant", word, moved, start, end, destination)
 
 
-def find_solutions(source: str, dictionary: Iterable[str], min_length: int = 4) -> list[Solution]:
+def find_solutions(source: str, dictionary: Iterable[str], min_length: int = 4,
+                   min_chunk_length: int = 2) -> list[Solution]:
     source = normalize_word(source)
     if isinstance(min_length, bool) or not isinstance(min_length, int) or min_length < 1:
         raise ValueError("Minimum target length must be a positive integer.")
+    if isinstance(min_chunk_length, bool) or not isinstance(min_chunk_length, int) or min_chunk_length < 1:
+        raise ValueError("Minimum chunk length must be a positive integer.")
     words = {normalize_word(w) for w in dictionary}
     excluded = {op.after for op in excisions(source)}
     found: dict[str, dict[Order, Sequence]] = {}
@@ -120,11 +123,11 @@ def find_solutions(source: str, dictionary: Iterable[str], min_length: int = 4) 
         (transplants, excisions), (excisions, transplants),
     ):
         seen_intermediates: set[str] = set()
-        for first in first_generator(source):
+        for first in first_generator(source, min_chunk_length):
             if len(first.after) < min_length or first.after in seen_intermediates:
                 continue
             seen_intermediates.add(first.after)
-            for second in second_generator(first.after):
+            for second in second_generator(first.after, min_chunk_length):
                 target = second.after
                 if len(target) < min_length or target not in words or target in excluded:
                     continue

@@ -1,540 +1,270 @@
 [
   {
-    "id": "wurgery-01",
-    "source": "HOSPITAL",
-    "target": "SHOP",
-    "clue": "A place to browse, buy, and perhaps spend too much.",
-    "frequency": 4.88,
-    "visual_similarity": 0.5,
-    "retained_transplanted_letters": 1,
+    "id": "wurgery-chunks2-01",
+    "source": "RAINBOWS",
+    "target": "BRAIN",
+    "clue": "Your body's thinking centre.",
+    "frequency": 4.94,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 4,
     "solution": {
       "transplant": {
         "kind": "transplant",
-        "before": "HOSPITAL",
-        "after": "SHOPITAL",
-        "start": 2,
-        "end": 3,
-        "destination": 0
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SHOPITAL",
-        "after": "SHOP",
-        "start": 4,
-        "end": 8,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-02",
-    "source": "WONDERFUL",
-    "target": "WOLF",
-    "clue": "A wild relative of the dog, famous for its howl.",
-    "frequency": 4.35,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "WONDERFUL",
-        "after": "WONDERULF",
-        "start": 6,
-        "end": 7,
-        "destination": 8
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "WONDERULF",
-        "after": "WOLF",
-        "start": 2,
-        "end": 7,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-03",
-    "source": "SNOWFLAKE",
-    "target": "FLOW",
-    "clue": "What a river does when nothing blocks its way.",
-    "frequency": 4.68,
-    "visual_similarity": 0.308,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SNOWFLAKE",
-        "after": "FLAKESNOW",
+        "before": "RAINBOWS",
+        "after": "BRAINOWS",
         "start": 0,
-        "end": 4,
-        "destination": 5
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "FLAKESNOW",
-        "after": "FLOW",
-        "start": 2,
-        "end": 7,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-04",
-    "source": "STRAWBERRY",
-    "target": "STAR",
-    "clue": "A tiny-looking light with a very big place in the sky.",
-    "frequency": 5.19,
-    "visual_similarity": 0.429,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "STRAWBERRY",
-        "after": "STARWBERRY",
-        "start": 2,
-        "end": 3,
-        "destination": 3
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "STARWBERRY",
-        "after": "STAR",
-        "start": 4,
-        "end": 10,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-05",
-    "source": "HEARTBEAT",
-    "target": "EARTH",
-    "clue": "Our home, all eight billion of us.",
-    "frequency": 5.06,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "HEARTBEAT",
-        "after": "EARTHBEAT",
-        "start": 0,
-        "end": 1,
-        "destination": 4
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "EARTHBEAT",
-        "after": "EARTH",
-        "start": 5,
-        "end": 9,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-06",
-    "source": "TOMORROW",
-    "target": "MOTOR",
-    "clue": "The machine that gets things turning.",
-    "frequency": 4.53,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "TOMORROW",
-        "after": "MOTORROW",
-        "start": 0,
-        "end": 2,
-        "destination": 2
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "MOTORROW",
-        "after": "MOTOR",
-        "start": 5,
-        "end": 8,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-07",
-    "source": "LANDSCAPE",
-    "target": "PLANE",
-    "clue": "Your ride above the clouds.",
-    "frequency": 4.72,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "LANDSCAPE",
-        "after": "PLANDSCAE",
-        "start": 7,
-        "end": 8,
-        "destination": 0
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "PLANDSCAE",
-        "after": "PLANE",
-        "start": 4,
-        "end": 8,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-08",
-    "source": "BLUEPRINT",
-    "target": "BELT",
-    "clue": "It goes around your waist and keeps things up.",
-    "frequency": 4.42,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "BLUEPRINT",
-        "after": "BELUPRINT",
-        "start": 3,
         "end": 4,
         "destination": 1
       },
       "excision": {
         "kind": "excision",
-        "before": "BELUPRINT",
-        "after": "BELT",
-        "start": 3,
+        "before": "BRAINOWS",
+        "after": "BRAIN",
+        "start": 5,
         "end": 8,
         "destination": null
       }
     }
   },
   {
-    "id": "wurgery-09",
-    "source": "CHAMPION",
-    "target": "COIN",
-    "clue": "Small change that jingles in your pocket.",
-    "frequency": 4.19,
-    "visual_similarity": 0.5,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "CHAMPION",
-        "after": "CHAMPOIN",
-        "start": 5,
-        "end": 6,
-        "destination": 6
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "CHAMPOIN",
-        "after": "COIN",
-        "start": 1,
-        "end": 5,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-10",
-    "source": "CHAMELEON",
-    "target": "LEMON",
-    "clue": "A yellow fruit with a sharp personality.",
-    "frequency": 4.1,
+    "id": "wurgery-chunks2-02",
+    "source": "FOOTBALL",
+    "target": "BALLOT",
+    "clue": "The paper you mark to cast your vote.",
+    "frequency": 4.06,
     "visual_similarity": 0.571,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "CHAMELEON",
-        "after": "CHAELEMON",
-        "start": 3,
-        "end": 4,
-        "destination": 6
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "CHAELEMON",
-        "after": "LEMON",
-        "start": 0,
-        "end": 4,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-11",
-    "source": "RASPBERRY",
-    "target": "SPRAY",
-    "clue": "Liquid sent out as a cloud of tiny drops.",
-    "frequency": 4.18,
-    "visual_similarity": 0.429,
     "retained_transplanted_letters": 2,
     "solution": {
       "transplant": {
         "kind": "transplant",
-        "before": "RASPBERRY",
-        "after": "SPRABERRY",
+        "before": "FOOTBALL",
+        "after": "FOBALLOT",
+        "start": 2,
+        "end": 4,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "FOBALLOT",
+        "after": "BALLOT",
         "start": 0,
         "end": 2,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-03",
+    "source": "SAPPHIRE",
+    "target": "SHAPE",
+    "clue": "A circle, a square, or a triangle.",
+    "frequency": 4.72,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "SAPPHIRE",
+        "after": "SHAPPIRE",
+        "start": 1,
+        "end": 4,
         "destination": 2
       },
       "excision": {
         "kind": "excision",
-        "before": "SPRABERRY",
-        "after": "SPRAY",
+        "before": "SHAPPIRE",
+        "after": "SHAPE",
         "start": 4,
-        "end": 8,
+        "end": 7,
         "destination": null
       }
     }
   },
   {
-    "id": "wurgery-12",
-    "source": "SATELLITE",
-    "target": "STEEL",
-    "clue": "The tough metal in skyscrapers and kitchen knives.",
-    "frequency": 4.71,
+    "id": "wurgery-chunks2-04",
+    "source": "WRESTLING",
+    "target": "WINGS",
+    "clue": "What birds spread before taking off.",
+    "frequency": 4.44,
     "visual_similarity": 0.571,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SATELLITE",
-        "after": "SATLITEEL",
-        "start": 3,
-        "end": 5,
-        "destination": 7
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SATLITEEL",
-        "after": "STEEL",
-        "start": 1,
-        "end": 5,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-13",
-    "source": "BIRTHDAY",
-    "target": "DAIRY",
-    "clue": "The food group that brings you milk, cheese, and yogurt.",
-    "frequency": 4.09,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "BIRTHDAY",
-        "after": "BTHDAIRY",
-        "start": 1,
-        "end": 3,
-        "destination": 5
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "BTHDAIRY",
-        "after": "DAIRY",
-        "start": 0,
-        "end": 3,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-14",
-    "source": "FIREWORKS",
-    "target": "FORK",
-    "clue": "The dinner-table tool with little prongs.",
-    "frequency": 4.03,
-    "visual_similarity": 0.615,
     "retained_transplanted_letters": 3,
     "solution": {
       "transplant": {
         "kind": "transplant",
-        "before": "FIREWORKS",
-        "after": "FORKIREWS",
-        "start": 5,
-        "end": 8,
+        "before": "WRESTLING",
+        "after": "WRETLINGS",
+        "start": 4,
+        "end": 9,
+        "destination": 3
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "WRETLINGS",
+        "after": "WINGS",
+        "start": 1,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-05",
+    "source": "ADVENTURE",
+    "target": "NATURE",
+    "clue": "The world of forests, rivers, and wild things.",
+    "frequency": 4.98,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "ADVENTURE",
+        "after": "NADVETURE",
+        "start": 0,
+        "end": 4,
         "destination": 1
       },
       "excision": {
         "kind": "excision",
-        "before": "FORKIREWS",
-        "after": "FORK",
-        "start": 4,
+        "before": "NADVETURE",
+        "after": "NATURE",
+        "start": 2,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-06",
+    "source": "SUNFLOWER",
+    "target": "OWNER",
+    "clue": "The person something belongs to.",
+    "frequency": 4.83,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "SUNFLOWER",
+        "after": "SUFLOWNER",
+        "start": 3,
+        "end": 7,
+        "destination": 2
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SUFLOWNER",
+        "after": "OWNER",
+        "start": 0,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-07",
+    "source": "CARTWHEEL",
+    "target": "CHART",
+    "clue": "A picture that turns numbers into a story.",
+    "frequency": 4.47,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 3,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CARTWHEEL",
+        "after": "CHARTWEEL",
+        "start": 1,
+        "end": 5,
+        "destination": 2
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "CHARTWEEL",
+        "after": "CHART",
+        "start": 5,
         "end": 9,
         "destination": null
       }
     }
   },
   {
-    "id": "wurgery-15",
-    "source": "WILDERNESS",
-    "target": "NEWS",
-    "clue": "What's happening, hot off the press.",
-    "frequency": 5.44,
+    "id": "wurgery-chunks2-08",
+    "source": "PARACHUTE",
+    "target": "TEACH",
+    "clue": "Help someone learn something new.",
+    "frequency": 4.67,
     "visual_similarity": 0.429,
+    "retained_transplanted_letters": 3,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "PARACHUTE",
+        "after": "PARUTEACH",
+        "start": 3,
+        "end": 6,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "PARUTEACH",
+        "after": "TEACH",
+        "start": 0,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-09",
+    "source": "SINGULAR",
+    "target": "SUGAR",
+    "clue": "A sweet addition to tea.",
+    "frequency": 4.68,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "SINGULAR",
+        "after": "SULINGAR",
+        "start": 4,
+        "end": 6,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SULINGAR",
+        "after": "SUGAR",
+        "start": 2,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-chunks2-10",
+    "source": "BOUNDARY",
+    "target": "AROUND",
+    "clue": "In a circle, or somewhere nearby.",
+    "frequency": 5.77,
+    "visual_similarity": 0.571,
     "retained_transplanted_letters": 2,
     "solution": {
       "transplant": {
         "kind": "transplant",
-        "before": "WILDERNESS",
-        "after": "NEWILDERSS",
-        "start": 6,
+        "before": "BOUNDARY",
+        "after": "ARYBOUND",
+        "start": 5,
         "end": 8,
         "destination": 0
       },
       "excision": {
         "kind": "excision",
-        "before": "NEWILDERSS",
-        "after": "NEWS",
-        "start": 3,
-        "end": 9,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-16",
-    "source": "SANDCASTLE",
-    "target": "SALT",
-    "clue": "A pinch of this makes dinner taste better.",
-    "frequency": 4.6,
-    "visual_similarity": 0.429,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SANDCASTLE",
-        "after": "SALENDCAST",
-        "start": 8,
-        "end": 10,
-        "destination": 2
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SALENDCAST",
-        "after": "SALT",
-        "start": 3,
-        "end": 9,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-17",
-    "source": "PORCELAIN",
-    "target": "CORN",
-    "clue": "Golden kernels that grow together on a cob.",
-    "frequency": 4.19,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "PORCELAIN",
-        "after": "CELAIPORN",
-        "start": 0,
-        "end": 3,
-        "destination": 5
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "CELAIPORN",
-        "after": "CORN",
-        "start": 1,
-        "end": 6,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-18",
-    "source": "SILHOUETTE",
-    "target": "HOUSE",
-    "clue": "Four walls, a roof, and a place to call home.",
-    "frequency": 5.71,
-    "visual_similarity": 0.533,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SILHOUETTE",
-        "after": "HOUSILETTE",
-        "start": 0,
-        "end": 3,
-        "destination": 3
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "HOUSILETTE",
-        "after": "HOUSE",
-        "start": 4,
-        "end": 9,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-19",
-    "source": "LABYRINTH",
-    "target": "BATH",
-    "clue": "A warm soak at the end of a long day.",
-    "frequency": 4.44,
-    "visual_similarity": 0.462,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "LABYRINTH",
-        "after": "BYRINLATH",
-        "start": 0,
-        "end": 2,
-        "destination": 5
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "BYRINLATH",
-        "after": "BATH",
-        "start": 1,
-        "end": 6,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-20",
-    "source": "TURQUOISE",
-    "target": "QUOTE",
-    "clue": "Someone else's exact words, borrowed in your writing.",
-    "frequency": 4.51,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "TURQUOISE",
-        "after": "QUOTURISE",
-        "start": 0,
-        "end": 3,
-        "destination": 3
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "QUOTURISE",
-        "after": "QUOTE",
-        "start": 4,
-        "end": 8,
+        "before": "ARYBOUND",
+        "after": "AROUND",
+        "start": 2,
+        "end": 4,
         "destination": null
       }
     }
