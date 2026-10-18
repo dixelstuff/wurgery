@@ -5,8 +5,8 @@ import {newGame, transplant, excise, textOf} from '../game/model.mjs';
 
 const puzzles = JSON.parse(readFileSync(new URL('../game/puzzles.json', import.meta.url)));
 
-test('all ten curated puzzles solve with chunks of at least two letters', () => {
-  assert.equal(puzzles.length, 10);
+test('all twenty curated puzzles solve with chunks of at least two letters', () => {
+  assert.equal(puzzles.length, 20);
   for (const puzzle of puzzles) {
     const move = puzzle.solution.transplant, cut = puzzle.solution.excision;
     assert.ok(move.end - move.start >= 2 && cut.end - cut.start >= 2);

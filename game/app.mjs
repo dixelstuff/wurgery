@@ -123,7 +123,7 @@ function render() {
   const ready = Boolean(validSelection()) && !finished;
   $('operation-control').className = `operation-control ${transplanting ? 'transplant' : 'excision'}${ready ? ' ready' : ' locked'}`;
   $('transplant-indicator').hidden = !transplanting;
-  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap the needle to place' : 'Transplant');
+  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap Transplant to place' : 'Transplant');
   document.querySelectorAll('.direction').forEach(arrow => { arrow.hidden = !transplanting || !ready; });
   $('move-left').disabled = !ready || selection.start <= 0;
   $('move-right').disabled = !ready || selection.end >= state.tokens.length;
@@ -297,7 +297,7 @@ $('next').addEventListener('click', () => loadPuzzle(current+1));
 
 
 try {
-  const response = await fetch('./puzzles.json?v=collection3');
+  const response = await fetch('./puzzles.json?v=collection3-levels20');
   if (!response.ok) throw new Error('The puzzle collection could not be loaded.');
   puzzles = await response.json();
   if (!puzzles.length) throw new Error('The puzzle collection is empty.');

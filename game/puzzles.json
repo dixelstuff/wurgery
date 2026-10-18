@@ -268,5 +268,275 @@
         "destination": null
       }
     }
+  },
+  {
+    "id": "wurgery-collection3-11",
+    "source": "RAINBOWS",
+    "target": "BRAIN",
+    "clue": "Your built-in control centre.",
+    "frequency": 4.94,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 4,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "RAINBOWS",
+        "after": "BRAINOWS",
+        "start": 0,
+        "end": 4,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "BRAINOWS",
+        "after": "BRAIN",
+        "start": 5,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-12",
+    "source": "FIREPLACE",
+    "target": "PEACE",
+    "clue": "What a truce is meant to bring.",
+    "frequency": 5.02,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "FIREPLACE",
+        "after": "PLFIREACE",
+        "start": 4,
+        "end": 6,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "PLFIREACE",
+        "after": "PEACE",
+        "start": 1,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-13",
+    "source": "TANGERINE",
+    "target": "ENGINE",
+    "clue": "It turns fuel into forward motion.",
+    "frequency": 4.84,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "TANGERINE",
+        "after": "ERTANGINE",
+        "start": 4,
+        "end": 6,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "ERTANGINE",
+        "after": "ENGINE",
+        "start": 1,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-14",
+    "source": "CLARINET",
+    "target": "CLEAR",
+    "clue": "How a view looks once the mist has lifted.",
+    "frequency": 5.25,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CLARINET",
+        "after": "CLEARINT",
+        "start": 2,
+        "end": 6,
+        "destination": 3
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "CLEARINT",
+        "after": "CLEAR",
+        "start": 5,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-15",
+    "source": "PARACHUTE",
+    "target": "TEACH",
+    "clue": "Help someone turn confusion into understanding.",
+    "frequency": 4.67,
+    "visual_similarity": 0.429,
+    "retained_transplanted_letters": 3,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "PARACHUTE",
+        "after": "PARUTEACH",
+        "start": 3,
+        "end": 6,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "PARUTEACH",
+        "after": "TEACH",
+        "start": 0,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-16",
+    "source": "DISCOVERY",
+    "target": "COVERS",
+    "clue": "They keep a book's story under wraps.",
+    "frequency": 4.51,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "DISCOVERY",
+        "after": "COVERYDIS",
+        "start": 0,
+        "end": 3,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "COVERYDIS",
+        "after": "COVERS",
+        "start": 5,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-17",
+    "source": "MILESTONE",
+    "target": "SMILE",
+    "clue": "A welcome you can give without saying a word.",
+    "frequency": 4.64,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 4,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "MILESTONE",
+        "after": "SMILETONE",
+        "start": 0,
+        "end": 4,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SMILETONE",
+        "after": "SMILE",
+        "start": 5,
+        "end": 9,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-18",
+    "source": "ADVENTURE",
+    "target": "NATURE",
+    "clue": "The world beyond what humans have built.",
+    "frequency": 4.98,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "ADVENTURE",
+        "after": "NADVETURE",
+        "start": 0,
+        "end": 4,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "NADVETURE",
+        "after": "NATURE",
+        "start": 2,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-19",
+    "source": "SAPPHIRE",
+    "target": "SHAPE",
+    "clue": "What a silhouette reveals, even without detail.",
+    "frequency": 4.72,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "SAPPHIRE",
+        "after": "SHAPPIRE",
+        "start": 1,
+        "end": 4,
+        "destination": 2
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SHAPPIRE",
+        "after": "SHAPE",
+        "start": 4,
+        "end": 7,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-20",
+    "source": "TRUMPETS",
+    "target": "TRUST",
+    "clue": "It can take years to build and seconds to lose.",
+    "frequency": 5.13,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "TRUMPETS",
+        "after": "TRUSMPET",
+        "start": 3,
+        "end": 7,
+        "destination": 4
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "TRUSMPET",
+        "after": "TRUST",
+        "start": 4,
+        "end": 7,
+        "destination": null
+      }
+    }
   }
 ]

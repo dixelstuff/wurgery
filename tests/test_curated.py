@@ -13,10 +13,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_curated_collection_is_valid_and_visually_distinct():
     puzzles = json.loads((ROOT / "game" / "puzzles.json").read_text())
     dictionary = load_dictionary([ROOT / "wordlists"]).words
-    assert len(puzzles) == 10
-    assert len({p['id'] for p in puzzles}) == 10
-    assert len({p['source'] for p in puzzles}) == 10
-    assert len({p['target'] for p in puzzles}) == 10
+    assert len(puzzles) == 20
+    assert len({p['id'] for p in puzzles}) == 20
+    assert len({p['source'] for p in puzzles}) == 20
+    assert len({p['target'] for p in puzzles}) == 20
     for p in puzzles:
         assert 7 <= len(p['source']) <= 9
         assert 5 <= len(p['target']) <= 7

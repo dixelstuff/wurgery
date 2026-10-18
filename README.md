@@ -22,7 +22,7 @@ its local HTML, CSS and JavaScript, with no build step or external services.
 1. Highlight at least two neighboring letters by dragging across them, or
    tapping the first and last. Drag the chunk to a new position; a translucent
    preview shows exactly where it will be inserted. Or tap the chevrons to
-   reposition the chunk, then tap the suturing needle to place it as one transplant.
+   reposition the chunk, then tap Transplant to place it as one transplant.
 2. Highlight a second chunk of at least two letters. Drag it onto ✂️ or tap
    the scissors to cut. The drop area extends beyond the visible tray, while
    staying below the word. The remaining word must match the clue.
@@ -43,7 +43,7 @@ a centered game, lavender background, white tiles and simple pill buttons. The
 main screen shows no answer length, chunk-size hints, operation log or tutorial.
 There is no instructions modal.
 
-The collection has 10 puzzles with starting words no longer than nine letters
+The collection has 20 puzzles with starting words no longer than nine letters
 and familiar answers of 5–7 letters, each with a short clue and a verified two-operation
 witness. It never displays a suggested answer or solution before you solve it.
 Any legal sequence to the intended answer is accepted. The puzzle data and

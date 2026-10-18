@@ -26,6 +26,16 @@ CHOICES = [
     ("MOUNTAINS", "AMOUNT", "How much of something there is."),
     ("CHRISTMAS", "CRASH", "A sudden collision, or the noise it makes."),
     ("DISTANCE", "STAND", "Be on your feet."),
+    ("RAINBOWS", "BRAIN", "Your built-in control centre."),
+    ("FIREPLACE", "PEACE", "What a truce is meant to bring."),
+    ("TANGERINE", "ENGINE", "It turns fuel into forward motion."),
+    ("CLARINET", "CLEAR", "How a view looks once the mist has lifted."),
+    ("PARACHUTE", "TEACH", "Help someone turn confusion into understanding."),
+    ("DISCOVERY", "COVERS", "They keep a book's story under wraps."),
+    ("MILESTONE", "SMILE", "A welcome you can give without saying a word."),
+    ("ADVENTURE", "NATURE", "The world beyond what humans have built."),
+    ("SAPPHIRE", "SHAPE", "What a silhouette reveals, even without detail."),
+    ("TRUMPETS", "TRUST", "It can take years to build and seconds to lose."),
 ]
 
 
