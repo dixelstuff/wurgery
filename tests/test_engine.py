@@ -4,7 +4,7 @@ from itertools import product
 
 import pytest
 
-from wurgery.engine import Operation, find_solutions, transplants
+from wurgery.engine import Operation, excisions, find_solutions, transplants
 
 
 def reference_deletions(text, minimum=1):
@@ -58,7 +58,7 @@ def independent_replay(op):
     return result
 
 
-@pytest.mark.parametrize("minimum", [1, 2])
+@pytest.mark.parametrize("minimum", [2, 3])
 @pytest.mark.parametrize("alphabet,max_length", [("AB", 7), ("ABC", 4)])
 def test_exhaustive_completeness_and_witnesses(alphabet, max_length, minimum):
     dictionary = {"".join(chars) for n in range(1, max_length)
@@ -86,7 +86,7 @@ def test_exhaustive_completeness_and_witnesses(alphabet, max_length, minimum):
 
 def test_noop_moves_with_repeated_letters_and_boundary_moves():
     assert list(transplants("AAAA")) == []
-    assert {op.after for op in transplants("ABBA")} == reference_moves("ABBA")
+    assert {op.after for op in transplants("ABBA")} == reference_moves("ABBA", 2)
     for word in ("ABC", "AABA", "GIGANTIC"):
         for op in transplants(word):
             assert op.verify()
@@ -119,7 +119,25 @@ def test_invalid_minimum(minimum):
         find_solutions("ABC", {"A"}, minimum)
 
 
-@pytest.mark.parametrize("minimum", [0, -1, 2.5, True])
+@pytest.mark.parametrize("minimum", [0, 1, -1, 2.5, True])
 def test_invalid_chunk_minimum(minimum):
     with pytest.raises(ValueError):
         find_solutions("ABCD", {"AB"}, min_chunk_length=minimum)
+    for generator in (excisions, transplants):
+        with pytest.raises(ValueError):
+            list(generator("ABCD", minimum))
+
+
+def test_default_operations_and_saved_example_never_use_single_letters():
+    import json
+    import re
+    from pathlib import Path
+
+    for generator in (excisions, transplants):
+        assert all(op.end - op.start >= 2 for op in generator("GIGANTIC"))
+    assert not Operation("transplant", "ABCD", "BCDA", 0, 1, 3).verify()
+    assert not Operation("excision", "ABCD", "BCD", 0, 1).verify()
+    example = json.loads((Path(__file__).resolve().parents[1] / "examples/gigantic.json").read_text())
+    assert example['minimum_chunk_length'] == 2
+    for row in example['results']:
+        assert all(len(chunk) >= 2 for chunk in re.findall(r'(?:transplant|excision) "([A-Z]+)"', row['Transformation sequence']))

@@ -1,55 +1,56 @@
 {
   "source": "GIGANTIC",
   "minimum_length": 4,
+  "minimum_chunk_length": 2,
   "dictionary_word_count": 284019,
   "results": [
     {
       "Target word": "ANTI",
       "Word frequency score": 5.01,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"C\" [7:8] to remainder gap 0 → CGIGANTI — excision \"CGIG\" [0:4] → ANTI"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"GIG\" [0:3] to remainder gap 4 \u2192 ANTIGIGC \u2014 excision \"GIGC\" [4:8] \u2192 ANTI"
     },
     {
       "Target word": "GIANT",
       "Word frequency score": 4.62,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"G\" [2:3] to remainder gap 5 → GIANTGIC — excision \"GIC\" [5:8] → GIANT"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"IC\" [6:8] to remainder gap 1 \u2192 GICIGANT \u2014 excision \"CIG\" [2:5] \u2192 GIANT"
     },
     {
       "Target word": "GANG",
       "Word frequency score": 4.5,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"GI\" [0:2] to remainder gap 3 → GANGITIC — excision \"ITIC\" [4:8] → GANG"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"GI\" [0:2] to remainder gap 3 \u2192 GANGITIC \u2014 excision \"ITIC\" [4:8] \u2192 GANG"
     },
     {
       "Target word": "CANT",
       "Word frequency score": 4.35,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"IC\" [6:8] to remainder gap 3 → GIGICANT — excision \"GIGI\" [0:4] → CANT"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"IC\" [6:8] to remainder gap 3 \u2192 GIGICANT \u2014 excision \"GIGI\" [0:4] \u2192 CANT"
     },
     {
       "Target word": "GINA",
       "Word frequency score": 3.58,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"GA\" [2:4] to remainder gap 6 → GINTICGA — excision \"TICG\" [3:7] → GINA"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"GA\" [2:4] to remainder gap 6 \u2192 GINTICGA \u2014 excision \"TICG\" [3:7] \u2192 GINA"
     },
     {
       "Target word": "GIGI",
       "Word frequency score": 3.19,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"I\" [6:7] to remainder gap 3 → GIGIANTC — excision \"ANTC\" [4:8] → GIGI"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"TI\" [5:7] to remainder gap 6 \u2192 GIGANCTI \u2014 excision \"ANCT\" [3:7] \u2192 GIGI"
     },
     {
       "Target word": "GANT",
       "Word frequency score": 2.69,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"GI\" [0:2] to remainder gap 4 → GANTGIIC — excision \"GIIC\" [4:8] → GANT"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"GI\" [0:2] to remainder gap 4 \u2192 GANTGIIC \u2014 excision \"GIIC\" [4:8] \u2192 GANT"
     },
     {
       "Target word": "GING",
       "Word frequency score": 2.38,
-      "Operation order": "transplant → excision",
-      "Transformation sequence": "GIGANTIC — transplant \"N\" [4:5] to remainder gap 2 → GINGATIC — excision \"ATIC\" [4:8] → GING"
+      "Operation order": "transplant \u2192 excision",
+      "Transformation sequence": "GIGANTIC \u2014 transplant \"GA\" [2:4] to remainder gap 3 \u2192 GINGATIC \u2014 excision \"ATIC\" [4:8] \u2192 GING"
     }
   ]
 }

@@ -147,6 +147,7 @@ function render() {
 
 function commitMove(destination) {
   if (!selection) return;
+  if (!availableMove(destination)) { setMessage(''); render(); return; }
   try {
     state = transplant(pendingMove?.original ?? state, pendingMove?.start ?? selection.start, pendingMove?.end ?? selection.end, destination);
     pendingMove = null;
@@ -200,7 +201,19 @@ function cancelGesture() {
 
 board.addEventListener('pointerdown', event => {
   if (event.button !== 0 || !['transplant','excision'].includes(state?.phase)) return;
-  const tile = event.target.closest('.letter'); if (!tile) return;
+  const selectedTiles = [...board.querySelectorAll('.letter.selected')];
+  let tile = event.target.closest('.letter');
+  if (!tile && event.target.closest('.gap') && validSelection()) {
+    const first = selectedTiles[0].getBoundingClientRect();
+    const last = selectedTiles.at(-1).getBoundingClientRect();
+    if (event.clientX >= first.left && event.clientX <= last.right && event.clientY >= first.top && event.clientY <= first.bottom) {
+      tile = selectedTiles.reduce((closest, candidate) => {
+        const rect = candidate.getBoundingClientRect(), best = closest.getBoundingClientRect();
+        return Math.abs(event.clientX - (rect.left + rect.width / 2)) < Math.abs(event.clientX - (best.left + best.width / 2)) ? candidate : closest;
+      });
+    }
+  }
+  if (!tile) return;
   event.preventDefault();
   let index = Number(tile.dataset.index);
   if (pendingMove && (index < selection.start || index >= selection.end)) {
@@ -212,7 +225,6 @@ board.addEventListener('pointerdown', event => {
   }
   const inside = validSelection() && index >= selection.start && index < selection.end;
   const anchor = selection?.anchor ?? index;
-  const selectedTiles = [...board.querySelectorAll('.letter.selected')];
   const first = selectedTiles[0]?.getBoundingClientRect();
   const last = selectedTiles.at(-1)?.getBoundingClientRect();
   const grabOffset = first && last ? event.clientX - (first.left + last.right) / 2 : 0;
@@ -287,7 +299,7 @@ $('move-right').addEventListener('click', () => nudgeChunk(1));
 $('place-transplant').addEventListener('click', () => {
   if (!validSelection()) setMessage('Select 2 or more letters', 'guidance');
   else if (!pendingMove) setMessage('Drag it or use ‹ ›', 'guidance');
-  else if (!availableMove(selection.start)) setMessage('Move it to a new spot', 'guidance');
+  else if (!availableMove(selection.start)) setMessage('');
   else { commitMove(selection.start); return; }
   render();
 });

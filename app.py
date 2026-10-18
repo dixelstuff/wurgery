@@ -21,7 +21,8 @@ def cached_dictionary(signature):
 def main():
     st.set_page_config(page_title="Wurgery — Puzzle Explorer", layout="wide")
     st.title("Wurgery — Puzzle Explorer")
-    st.write("Find shorter words that require one transplant and one excision, in either order.")
+    st.write("Find shorter words that require one transplant and one excision, in either order. "
+             "Both chunks must contain at least two letters.")
 
     paths = [ROOT / "wordlists"]
     paths.extend(Path(p) for p in os.environ.get("WURGERY_WORDLIST_PATHS", "").split(os.pathsep) if p)
@@ -48,10 +49,10 @@ def main():
         except ValueError as error:
             st.error(str(error))
             return
-        st.session_state["search_result"] = (source.strip().upper(), int(minimum), rows)
+        st.session_state["search_result_chunks2"] = (source.strip().upper(), int(minimum), rows)
 
-    if "search_result" in st.session_state:
-        searched_source, searched_minimum, rows = st.session_state["search_result"]
+    if "search_result_chunks2" in st.session_state:
+        searched_source, searched_minimum, rows = st.session_state["search_result_chunks2"]
         st.write(f"**{len(rows)} solutions** for **{searched_source}** "
                  f"(at least {searched_minimum} letters)")
         if not rows:

@@ -142,32 +142,11 @@ operation's input. A transplant destination is a gap in the remainder **after**
 removing its chunk: gap zero is before the first letter, and gap `len(remainder)`
 is after the last letter.
 
-## Original-mechanic GIGANTIC demonstration
+## GIGANTIC demonstration
 
-This archived demonstration allows one-letter chunks (`min_chunk_length=1`).
-The current game and explorer require at least two letters per operation.
-With the original rule and minimum answer length four, these eight targets result:
-
-| Target | Word frequency score | Order |
-| --- | ---: | --- |
-| ANTI | 5.01 | Transplant → excision |
-| GIANT | 4.62 | Transplant → excision |
-| GANG | 4.50 | Transplant → excision |
-| CANT | 4.35 | Transplant → excision |
-| GINA | 3.58 | Transplant → excision |
-| GIGI | 3.19 | Transplant → excision |
-| GANT | 2.69 | Transplant → excision |
-| GING | 2.38 | Transplant → excision |
-
-Example: `GI[G]ANTIC` → `GIANT[G]IC` → `GIANT`. Transplant the third
-letter `G` to gap five in `GIANTIC`, giving `GIANTGIC`; excise its final
-`GIC`. `ANTIC` is deliberately absent because removing the initial `GIG` alone
-produces it. This source happens to have no qualifying dictionary targets in the
-excision-first order; that order is nevertheless searched and independently
-tested. Names such as GINA reflect the deliberately inclusive dictionary.
-
-The [saved demonstration](examples/gigantic.json) contains every score and full
-sequence. To reproduce it in Python:
+The [saved demonstration](examples/gigantic.json) uses the current rule:
+transplants and excisions both contain at least two letters. Single-letter
+chunks cannot be enabled in the explorer or engine.
 
 ```python
 from wurgery.dictionary import load_dictionary
@@ -175,7 +154,7 @@ from wurgery.engine import find_solutions
 from wurgery.scoring import result_rows
 
 dictionary = load_dictionary(["wordlists"])
-for row in result_rows(find_solutions("GIGANTIC", dictionary.words, min_chunk_length=1)):
+for row in result_rows(find_solutions("GIGANTIC", dictionary.words)):
     print(row)
 ```
 
@@ -186,7 +165,7 @@ python -m pytest -q
 ```
 
 The tests compare the complete results, separately for each operation order,
-against an independent reference, for minimum chunk sizes one and two, for **all 374 nonempty binary strings through
+against an independent reference, for minimum chunk sizes two and three, for **all 374 nonempty binary strings through
 length seven and ternary strings through length four**. The reference uses
 deletion masks and swaps of adjacent blocks, rather than the engine's
 cut-and-insert loops. Adjacent-block swaps enumerate the same transplant

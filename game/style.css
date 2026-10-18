@@ -37,7 +37,7 @@ button:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
 .header { position: relative; width: 100%; }
 .header h1 { display: inline-flex; gap: 8px; }
 .brand-mark { width: 14px; height: 14px; align-self: flex-start; margin-top: 8px; color: var(--green); opacity: .65; flex: none; }
-h1 { font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1.015; font-weight: 400; letter-spacing: -.065em; color: #51465f; margin: 0; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1.015; font-weight: 700; letter-spacing: -.045em; color: #51465f; margin: 0; }
 .puzzle-nav { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; color: var(--muted); }
 .puzzle-nav button { display: grid; place-items: center; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; }
 .puzzle-nav button:disabled { opacity: .22; }

@@ -18,6 +18,9 @@ def test_find_gigantic_and_change_minimum(monkeypatch):
     assert "ANTIC" not in set(table["Target word"])
     assert table["Word frequency score"].is_monotonic_decreasing
     assert table["Target word"].is_unique
+    import re
+    for sequence in table['Transformation sequence']:
+        assert all(len(chunk) >= 2 for chunk in re.findall(r'(?:transplant|excision) "([A-Z]+)"', sequence))
     app.number_input[0].set_value(5)
     app.button[0].click().run()
     assert not app.exception

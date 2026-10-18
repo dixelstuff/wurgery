@@ -34,7 +34,7 @@ class Operation:
         return self.before[self.start:self.end]
 
     def verify(self) -> bool:
-        if not 0 <= self.start < self.end <= len(self.before):
+        if not 0 <= self.start < self.end <= len(self.before) or self.end - self.start < 2:
             return False
         remainder = self.before[:self.start] + self.before[self.end:]
         if self.kind == "excision":
@@ -87,13 +87,20 @@ class Solution:
     sequences: tuple[Sequence, ...]
 
 
-def excisions(word: str, min_chunk_length: int = 1) -> Iterator[Operation]:
+def validate_chunk_minimum(minimum: int) -> None:
+    if isinstance(minimum, bool) or not isinstance(minimum, int) or minimum < 2:
+        raise ValueError("Minimum chunk length must be an integer of at least two letters.")
+
+
+def excisions(word: str, min_chunk_length: int = 2) -> Iterator[Operation]:
+    validate_chunk_minimum(min_chunk_length)
     for start in range(len(word)):
         for end in range(start + min_chunk_length, len(word) + 1):
             yield Operation("excision", word, word[:start] + word[end:], start, end)
 
 
-def transplants(word: str, min_chunk_length: int = 1) -> Iterator[Operation]:
+def transplants(word: str, min_chunk_length: int = 2) -> Iterator[Operation]:
+    validate_chunk_minimum(min_chunk_length)
     # Equal output strings share the same possible second operations, so one
     # representative is sufficient, even when repeated letters create aliases.
     seen: set[str] = set()
@@ -114,10 +121,11 @@ def find_solutions(source: str, dictionary: Iterable[str], min_length: int = 4,
     source = normalize_word(source)
     if isinstance(min_length, bool) or not isinstance(min_length, int) or min_length < 1:
         raise ValueError("Minimum target length must be a positive integer.")
-    if isinstance(min_chunk_length, bool) or not isinstance(min_chunk_length, int) or min_chunk_length < 1:
-        raise ValueError("Minimum chunk length must be a positive integer.")
+    validate_chunk_minimum(min_chunk_length)
     words = {normalize_word(w) for w in dictionary}
-    excluded = {op.after for op in excisions(source)}
+    # Exclude even one-letter-only deletions without exposing them as options.
+    excluded = {source[:start] + source[end:]
+                for start in range(len(source)) for end in range(start + 1, len(source) + 1)}
     found: dict[str, dict[Order, Sequence]] = {}
     for first_generator, second_generator in (
         (transplants, excisions), (excisions, transplants),
