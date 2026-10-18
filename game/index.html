@@ -7,8 +7,8 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css?v=steady-feedback">
-  <script type="module" src="app.mjs?v=steady-feedback"></script>
+  <link rel="stylesheet" href="style.css?v=compact-linear">
+  <script type="module" src="app.mjs?v=compact-linear"></script>
 </head>
 <body>
   <main class="game">
@@ -17,7 +17,7 @@
     </header>
     <nav class="puzzle-nav" aria-label="Puzzle navigation">
       <button id="previous" type="button" aria-label="Previous puzzle">‹</button>
-      <label class="puzzle-label" for="puzzle-picker">Puzzle <select id="puzzle-picker" aria-label="Choose puzzle"></select><span id="puzzle-total"></span></label>
+      <span class="puzzle-label">Puzzle <span id="puzzle-number"></span><span id="puzzle-total"></span><span id="puzzle-completed" class="puzzle-completed" aria-label="Completed" hidden>✓</span></span>
       <button id="next" type="button" aria-label="Next puzzle">›</button>
     </nav>
     <p id="clue" class="clue">Loading…</p>
@@ -45,7 +45,6 @@
     </section>
     <div class="actions">
       <button id="reset" class="pill" type="button">Reset</button>
-      <button id="next-solved" class="pill primary" type="button" hidden>Next →</button>
     </div>
     <p id="progress" class="progress"></p>
     <noscript>Enable JavaScript to play.</noscript>

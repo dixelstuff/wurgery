@@ -135,19 +135,11 @@ function render() {
   $('status').textContent = state.phase === 'incorrect' ? 'NOPE' : message;
   $('status').className = `status ${messageKind}`;
   $('operation-control').classList.toggle('has-feedback', state.phase === 'incorrect' || Boolean(message));
-  $('next-solved').hidden = state.phase !== 'solved';
-  $('next-solved').textContent = current === puzzles.length - 1 ? 'Back to start' : 'Next →';
   $('previous').disabled = current === 0;
   $('next').disabled = current === puzzles.length - 1;
   $('puzzle-total').textContent = `/ ${puzzles.length}`;
-  const picker = $('puzzle-picker');
-  picker.replaceChildren(...puzzles.map((p,i) => {
-    const option = document.createElement('option');
-    option.value = i;
-    option.textContent = `${i+1}${solved.has(p.id) ? ' ✓' : ''}`;
-    return option;
-  }));
-  picker.value = current;
+  $('puzzle-number').textContent = current + 1;
+  $('puzzle-completed').hidden = !solved.has(state.puzzle.id);
 }
 
 function commitMove(destination) {
@@ -294,8 +286,6 @@ $('reset').addEventListener('click', () => loadPuzzle(current));
 $('scalpel').addEventListener('click', () => { if (selection) commitExcision(); });
 $('previous').addEventListener('click', () => loadPuzzle(current-1));
 $('next').addEventListener('click', () => loadPuzzle(current+1));
-$('next-solved').addEventListener('click', () => loadPuzzle((current+1)%puzzles.length));
-$('puzzle-picker').addEventListener('change', event => loadPuzzle(Number(event.target.value)));
 
 
 try {

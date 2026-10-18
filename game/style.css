@@ -40,8 +40,9 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .puzzle-nav button { width: 44px; height: 44px; background: transparent; border: 0; padding: 0; font-size: 29px; font-weight: 350; }
 .puzzle-nav button:disabled { opacity: .22; }
 .puzzle-label { display: flex; align-items: center; gap: 4px; font-size: 16px; }
-.puzzle-label select { appearance: none; -webkit-appearance: none; outline: none; box-shadow: none; border-radius: 0; text-align: center; min-width: 28px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
-.puzzle-label select:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.puzzle-label { position: relative; height: 44px; }
+#puzzle-number { min-width: 20px; }
+.puzzle-completed { position: absolute; left: calc(100% + 4px); color: var(--green); font-weight: 700; font-size: 13px; }
 #puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
 .clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 82px; margin: 12px 0 20px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
@@ -100,23 +101,23 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 .letter.insertion-preview { display: grid; place-items: center; background: var(--green-soft); color: var(--green); opacity: .65; border: 1.5px dashed var(--green); box-shadow: none; pointer-events: none; }
 
-.operation-control { position: relative; display: inline-flex; width: min(360px, 100%); height: 116px; align-items: center; justify-content: center; border: 1.5px dashed var(--border); border-radius: 18px; color: var(--green); transition: background .15s, border-color .15s; }
+.operation-control { position: relative; display: inline-flex; width: 112px; height: 76px; align-items: center; justify-content: center; border: 1.5px dashed var(--border); border-radius: 18px; color: var(--green); transition: background .15s, border-color .15s; }
 .operation-control.locked { opacity: .45; }
 .operation-control.transplant.ready { border-color: #7db598; background: var(--green-soft); }
 .operation-control.excision.ready { border-color: #d9a9ad; background: var(--red-soft); color: var(--red); }
-.transplant-indicator { display: flex; width: min(230px, 100%); align-items: center; justify-content: center; padding: 0 12px; gap: 8px; }
+.transplant-indicator { display: flex; width: 100%; align-items: center; justify-content: center; }
 .operation-icon { font-size: 28px; }
-.direction { width: 52px; height: 60px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--green); font-size: 35px; font-weight: 350; line-height: 1; }
+.direction { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 60px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--green); font-size: 35px; font-weight: 350; line-height: 1; }
+#move-left { right: calc(100% + 8px); }
+#move-right { left: calc(100% + 8px); }
 .direction:disabled { opacity: .25; }
 .place-transplant { display: grid; place-items: center; width: 48px; height: 60px; padding: 0; border: 0; border-radius: 12px; background: transparent; color: var(--green); }
 .place-transplant:disabled { opacity: .5; }
 .place-transplant:not(:disabled) { background: #c8e6d3; }
-.operation-control.excision { width: min(360px, 100%); height: 116px; }
 .scalpel { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; border: 0; border-radius: inherit; background: transparent; color: var(--red); }
 .scalpel.drop-hover { background: #f4c9cd; box-shadow: 0 0 0 2px var(--red); }
 .operation-control.has-feedback { opacity: 1; border-color: #d9a9ad; background: var(--red-soft); }
 .operation-control.has-feedback > :not(.status) { visibility: hidden; }
 
-.operation-control.ready .transplant-indicator { justify-content: space-between; }
 
 .operation-control.locked .place-transplant:disabled { opacity: 1; }
