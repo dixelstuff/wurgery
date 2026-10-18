@@ -35,6 +35,8 @@ button:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
   text-align: center;
 }
 .header { position: relative; width: 100%; }
+.header h1 { display: inline-flex; gap: 8px; }
+.brand-mark { width: 14px; height: 14px; align-self: flex-start; margin-top: 8px; color: var(--green); opacity: .65; flex: none; }
 h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045em; margin: 0; }
 .puzzle-nav { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; color: var(--muted); }
 .puzzle-nav button { width: 44px; height: 44px; background: transparent; border: 0; padding: 0; font-size: 29px; font-weight: 350; }
