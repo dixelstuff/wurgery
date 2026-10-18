@@ -27,13 +27,14 @@ its local HTML, CSS and JavaScript, with no build step or external services.
    the scissors to cut. The drop area extends beyond the visible tray, while
    staying below the word. The remaining word must match the clue.
 3. Tap outside the letters to clear a selection. **Reset** always starts the
-   whole puzzle again, including after a wrong answer. Navigate with the arrows
-   or numbered picker. Solved progress is saved in this browser's local storage.
+   whole puzzle again, including after a wrong answer. After solving, this same
+   button becomes **Next**; after the last puzzle it returns to the first.
+   Navigate with the arrows. Solved progress is saved in this browser's local storage.
 
 The control below the word shows a muted transplant icon, activating with
 left/right chevrons when a valid chunk is selected. After the move, the same
-space becomes the scissors. There is no instruction above the word and no
-congratulatory message after solving. There are no
+space becomes the scissors, then shows **Correct!** or **NOPE** after a cut.
+There is no instruction above the word. There are no
 permanent transplanted-letter markers, help modal or partial resets. Keyboard
 users can select with Space/Enter, extend with Shift+Left/Right, and Tab to
 insertion positions or the scalpel. Escape clears the current selection.

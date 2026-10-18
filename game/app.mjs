@@ -136,7 +136,8 @@ function render() {
   $('status').className = `status ${messageKind}`;
   $('operation-control').classList.toggle('has-feedback', finished || Boolean(message));
   $('operation-control').classList.toggle('success', state.phase === 'solved');
-  $('reset').disabled = state.phase === 'solved';
+  $('reset').textContent = state.phase === 'solved' ? 'Next' : 'Reset';
+  $('reset').classList.toggle('primary', state.phase === 'solved');
   $('previous').disabled = current === 0;
   $('next').disabled = current === puzzles.length - 1;
   $('puzzle-total').textContent = `/ ${puzzles.length}`;
@@ -290,7 +291,7 @@ $('place-transplant').addEventListener('click', () => {
   else { commitMove(selection.start); return; }
   render();
 });
-$('reset').addEventListener('click', () => loadPuzzle(current));
+$('reset').addEventListener('click', () => loadPuzzle(state.phase === 'solved' ? (current + 1) % puzzles.length : current));
 $('scalpel').addEventListener('click', commitExcision);
 $('previous').addEventListener('click', () => loadPuzzle(current-1));
 $('next').addEventListener('click', () => loadPuzzle(current+1));
