@@ -28,8 +28,10 @@ its local HTML, CSS and JavaScript, with no build step or external services.
    whole puzzle again, including after a wrong answer. Navigate with the arrows
    or numbered picker. Solved progress is saved in this browser's local storage.
 
-The action prompt appears only while a valid chunk is selected: left/right
-arrows for transplant, then a downward arrow for excision. There are no
+The control below the word shows a muted transplant icon, activating with
+left/right chevrons when a valid chunk is selected. After the move, the same
+space becomes the scissors. There is no instruction above the word and no
+congratulatory message after solving. There are no
 permanent transplanted-letter markers, help modal or partial resets. Keyboard
 users can select with Space/Enter, extend with Shift+Left/Right, and Tab to
 insertion positions or the scalpel. Escape clears the current selection.

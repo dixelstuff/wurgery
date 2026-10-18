@@ -1,270 +1,270 @@
 [
   {
-    "id": "wurgery-chunks2-01",
-    "source": "RAINBOWS",
-    "target": "BRAIN",
-    "clue": "Your body's thinking centre.",
-    "frequency": 4.94,
+    "id": "wurgery-collection3-01",
+    "source": "TREASURE",
+    "target": "TEARS",
+    "clue": "They can fall when you're happy or sad.",
+    "frequency": 4.47,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "TREASURE",
+        "after": "TEARSURE",
+        "start": 2,
+        "end": 4,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "TEARSURE",
+        "after": "TEARS",
+        "start": 5,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-02",
+    "source": "DANGEROUS",
+    "target": "RANGE",
+    "clue": "The distance between the lowest and highest.",
+    "frequency": 5.12,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "DANGEROUS",
+        "after": "ROUSDANGE",
+        "start": 5,
+        "end": 9,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "ROUSDANGE",
+        "after": "RANGE",
+        "start": 1,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-03",
+    "source": "ASTRONAUT",
+    "target": "START",
+    "clue": "The opposite of the finish.",
+    "frequency": 5.56,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "ASTRONAUT",
+        "after": "STARONAUT",
+        "start": 1,
+        "end": 3,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "STARONAUT",
+        "after": "START",
+        "start": 4,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-04",
+    "source": "CROISSANT",
+    "target": "SAINT",
+    "clue": "A person celebrated for a holy life.",
+    "frequency": 4.41,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CROISSANT",
+        "after": "CROSSAINT",
+        "start": 4,
+        "end": 7,
+        "destination": 3
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "CROSSAINT",
+        "after": "SAINT",
+        "start": 0,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-05",
+    "source": "LANGUAGE",
+    "target": "ANGEL",
+    "clue": "A heavenly messenger with wings.",
+    "frequency": 4.45,
     "visual_similarity": 0.615,
     "retained_transplanted_letters": 4,
     "solution": {
       "transplant": {
         "kind": "transplant",
-        "before": "RAINBOWS",
-        "after": "BRAINOWS",
-        "start": 0,
-        "end": 4,
-        "destination": 1
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "BRAINOWS",
-        "after": "BRAIN",
-        "start": 5,
-        "end": 8,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-02",
-    "source": "FOOTBALL",
-    "target": "BALLOT",
-    "clue": "The paper you mark to cast your vote.",
-    "frequency": 4.06,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "FOOTBALL",
-        "after": "FOBALLOT",
-        "start": 2,
-        "end": 4,
-        "destination": 6
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "FOBALLOT",
-        "after": "BALLOT",
-        "start": 0,
-        "end": 2,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-03",
-    "source": "SAPPHIRE",
-    "target": "SHAPE",
-    "clue": "A circle, a square, or a triangle.",
-    "frequency": 4.72,
-    "visual_similarity": 0.615,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SAPPHIRE",
-        "after": "SHAPPIRE",
+        "before": "LANGUAGE",
+        "after": "ANGUAGEL",
         "start": 1,
-        "end": 4,
-        "destination": 2
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SHAPPIRE",
-        "after": "SHAPE",
-        "start": 4,
-        "end": 7,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-04",
-    "source": "WRESTLING",
-    "target": "WINGS",
-    "clue": "What birds spread before taking off.",
-    "frequency": 4.44,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 3,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "WRESTLING",
-        "after": "WRETLINGS",
-        "start": 4,
-        "end": 9,
-        "destination": 3
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "WRETLINGS",
-        "after": "WINGS",
-        "start": 1,
-        "end": 5,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-05",
-    "source": "ADVENTURE",
-    "target": "NATURE",
-    "clue": "The world of forests, rivers, and wild things.",
-    "frequency": 4.98,
-    "visual_similarity": 0.667,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "ADVENTURE",
-        "after": "NADVETURE",
-        "start": 0,
-        "end": 4,
-        "destination": 1
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "NADVETURE",
-        "after": "NATURE",
-        "start": 2,
-        "end": 5,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-06",
-    "source": "SUNFLOWER",
-    "target": "OWNER",
-    "clue": "The person something belongs to.",
-    "frequency": 4.83,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SUNFLOWER",
-        "after": "SUFLOWNER",
-        "start": 3,
-        "end": 7,
-        "destination": 2
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SUFLOWNER",
-        "after": "OWNER",
-        "start": 0,
-        "end": 4,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-07",
-    "source": "CARTWHEEL",
-    "target": "CHART",
-    "clue": "A picture that turns numbers into a story.",
-    "frequency": 4.47,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 3,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "CARTWHEEL",
-        "after": "CHARTWEEL",
-        "start": 1,
-        "end": 5,
-        "destination": 2
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "CHARTWEEL",
-        "after": "CHART",
-        "start": 5,
-        "end": 9,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-08",
-    "source": "PARACHUTE",
-    "target": "TEACH",
-    "clue": "Help someone learn something new.",
-    "frequency": 4.67,
-    "visual_similarity": 0.429,
-    "retained_transplanted_letters": 3,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "PARACHUTE",
-        "after": "PARUTEACH",
-        "start": 3,
-        "end": 6,
-        "destination": 6
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "PARUTEACH",
-        "after": "TEACH",
-        "start": 0,
-        "end": 4,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-09",
-    "source": "SINGULAR",
-    "target": "SUGAR",
-    "clue": "A sweet addition to tea.",
-    "frequency": 4.68,
-    "visual_similarity": 0.615,
-    "retained_transplanted_letters": 1,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "SINGULAR",
-        "after": "SULINGAR",
-        "start": 4,
-        "end": 6,
-        "destination": 1
-      },
-      "excision": {
-        "kind": "excision",
-        "before": "SULINGAR",
-        "after": "SUGAR",
-        "start": 2,
-        "end": 5,
-        "destination": null
-      }
-    }
-  },
-  {
-    "id": "wurgery-chunks2-10",
-    "source": "BOUNDARY",
-    "target": "AROUND",
-    "clue": "In a circle, or somewhere nearby.",
-    "frequency": 5.77,
-    "visual_similarity": 0.571,
-    "retained_transplanted_letters": 2,
-    "solution": {
-      "transplant": {
-        "kind": "transplant",
-        "before": "BOUNDARY",
-        "after": "ARYBOUND",
-        "start": 5,
         "end": 8,
         "destination": 0
       },
       "excision": {
         "kind": "excision",
-        "before": "ARYBOUND",
-        "after": "AROUND",
+        "before": "ANGUAGEL",
+        "after": "ANGEL",
         "start": 2,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-06",
+    "source": "MYSTERIES",
+    "target": "MERIT",
+    "clue": "A quality that deserves praise or reward.",
+    "frequency": 4.08,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "MYSTERIES",
+        "after": "MERIESYST",
+        "start": 1,
         "end": 4,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "MERIESYST",
+        "after": "MERIT",
+        "start": 4,
+        "end": 8,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-07",
+    "source": "NIGHTFALL",
+    "target": "FIGHT",
+    "clue": "A clash between opponents.",
+    "frequency": 5.23,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "NIGHTFALL",
+        "after": "FALLNIGHT",
+        "start": 5,
+        "end": 9,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "FALLNIGHT",
+        "after": "FIGHT",
+        "start": 1,
+        "end": 5,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-08",
+    "source": "MOUNTAINS",
+    "target": "AMOUNT",
+    "clue": "How much of something there is.",
+    "frequency": 5.13,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 5,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "MOUNTAINS",
+        "after": "AMOUNTINS",
+        "start": 0,
+        "end": 5,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "AMOUNTINS",
+        "after": "AMOUNT",
+        "start": 6,
+        "end": 9,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-09",
+    "source": "CHRISTMAS",
+    "target": "CRASH",
+    "clue": "A sudden collision, or the noise it makes.",
+    "frequency": 4.55,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 3,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CHRISTMAS",
+        "after": "CRISTMASH",
+        "start": 2,
+        "end": 9,
+        "destination": 1
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "CRISTMASH",
+        "after": "CRASH",
+        "start": 2,
+        "end": 6,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-10",
+    "source": "DISTANCE",
+    "target": "STAND",
+    "clue": "Be on your feet.",
+    "frequency": 5.14,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "DISTANCE",
+        "after": "STANDICE",
+        "start": 0,
+        "end": 2,
+        "destination": 4
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "STANDICE",
+        "after": "STAND",
+        "start": 5,
+        "end": 8,
         "destination": null
       }
     }

@@ -7,8 +7,8 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css?v=chunks2">
-  <script type="module" src="app.mjs?v=chunks2"></script>
+  <link rel="stylesheet" href="style.css?v=collection3">
+  <script type="module" src="app.mjs?v=collection3"></script>
 </head>
 <body>
   <main class="game">
@@ -22,10 +22,17 @@
     </nav>
     <p id="clue" class="clue">Loading…</p>
     <section class="play-area" aria-label="Word puzzle">
-      <p id="instruction" class="instruction transplant" aria-live="polite" style="visibility:hidden">← transplant a chunk →</p>
       <div id="word-board" class="word-board" role="group" aria-label="Puzzle letters"></div>
       <span id="selection-copy" class="sr-only" aria-live="polite"></span>
-      <button id="scalpel" class="scalpel locked" type="button" aria-label="Excise selected letters" aria-disabled="true"><span class="scalpel-icon" aria-hidden="true">✂️</span></button>
+      <div id="operation-control" class="operation-control transplant locked" role="group" aria-label="Surgery control">
+        <div id="transplant-indicator" class="transplant-indicator" role="status" aria-label="Transplant">
+          <span class="direction" aria-hidden="true" hidden>‹</span>
+          <span class="operation-icon" aria-hidden="true">🧩</span>
+          <span class="sr-only">Transplant</span>
+          <span class="direction" aria-hidden="true" hidden>›</span>
+        </div>
+        <button id="scalpel" class="scalpel" type="button" aria-label="Excise selected letters" aria-disabled="true" hidden><span class="operation-icon" aria-hidden="true">✂️</span></button>
+      </div>
     </section>
     <div id="status" class="status" role="status" aria-live="polite"></div>
     <div class="actions">

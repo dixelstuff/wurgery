@@ -1,4 +1,4 @@
-import {newGame, transplant, excise, textOf} from './model.mjs?v=chunks2';
+import {newGame, transplant, excise, textOf} from './model.mjs?v=collection3';
 
 const $ = id => document.getElementById(id);
 const board = $('word-board');
@@ -101,13 +101,18 @@ function render() {
   const solvedCount = puzzles.filter(p => solved.has(p.id)).length;
   $('progress').textContent = `${solvedCount} / ${puzzles.length} solved`;
   const finished = ['solved', 'incorrect'].includes(state.phase);
-  $('instruction').textContent = cutting ? 'excise a chunk ↓' : '← transplant a chunk →';
-  $('instruction').className = `instruction ${cutting ? 'excision' : 'transplant'}`;
-  $('instruction').style.visibility = finished || !validSelection() ? 'hidden' : 'visible';
   $('clue').textContent = state.puzzle.clue;
   $('selection-copy').textContent = selection ? `Selected ${textOf(selectedChunk())}` : '';
-  $('scalpel').className = `scalpel${cutting ? '' : ' locked'}`;
-  $('scalpel').setAttribute('aria-disabled', String(!cutting || !validSelection()));
+  const transplanting = state.phase === 'transplant';
+  const ready = Boolean(validSelection()) && !finished;
+  $('operation-control').className = `operation-control ${transplanting ? 'transplant' : 'excision'}${ready ? ' ready' : ' locked'}`;
+  $('operation-control').style.visibility = finished ? 'hidden' : 'visible';
+  $('transplant-indicator').hidden = !transplanting;
+  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: drag the chunk left or right' : 'Transplant');
+  document.querySelectorAll('.direction').forEach(arrow => { arrow.hidden = !transplanting || !ready; });
+  $('scalpel').hidden = transplanting;
+  $('scalpel').className = 'scalpel';
+  $('scalpel').setAttribute('aria-disabled', String(!cutting || !ready));
   $('status').textContent = message;
   $('status').className = `status ${messageKind}`;
   $('next-solved').hidden = state.phase !== 'solved';
@@ -141,7 +146,7 @@ function commitExcision() {
     state = excise(state, selection.start, selection.end); selection = null;
     if (state.phase === 'solved') {
       solved.add(state.puzzle.id); saveProgress();
-      setMessage(puzzles.every(p => solved.has(p.id)) ? 'Collection complete! 🌿' : 'Nicely done! 🌿', 'success');
+      setMessage('');
     } else setMessage('Not quite. Reset and try again.', 'error');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
@@ -239,7 +244,7 @@ $('puzzle-picker').addEventListener('change', event => loadPuzzle(Number(event.t
 
 
 try {
-  const response = await fetch('./puzzles.json?v=chunks2');
+  const response = await fetch('./puzzles.json?v=collection3');
   if (!response.ok) throw new Error('The puzzle collection could not be loaded.');
   puzzles = await response.json();
   if (!puzzles.length) throw new Error('The puzzle collection is empty.');

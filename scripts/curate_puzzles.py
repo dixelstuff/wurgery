@@ -16,16 +16,16 @@ from wurgery.engine import Sequence, excisions, find_solutions, transplants
 # Editorial choices after exploring 80+ familiar starting words. Clues define
 # the intended answer; other dictionary outcomes are not accepted by the game.
 CHOICES = [
-    ("RAINBOWS", "BRAIN", "Your body's thinking centre."),
-    ("FOOTBALL", "BALLOT", "The paper you mark to cast your vote."),
-    ("SAPPHIRE", "SHAPE", "A circle, a square, or a triangle."),
-    ("WRESTLING", "WINGS", "What birds spread before taking off."),
-    ("ADVENTURE", "NATURE", "The world of forests, rivers, and wild things."),
-    ("SUNFLOWER", "OWNER", "The person something belongs to."),
-    ("CARTWHEEL", "CHART", "A picture that turns numbers into a story."),
-    ("PARACHUTE", "TEACH", "Help someone learn something new."),
-    ("SINGULAR", "SUGAR", "A sweet addition to tea."),
-    ("BOUNDARY", "AROUND", "In a circle, or somewhere nearby."),
+    ("TREASURE", "TEARS", "They can fall when you're happy or sad."),
+    ("DANGEROUS", "RANGE", "The distance between the lowest and highest."),
+    ("ASTRONAUT", "START", "The opposite of the finish."),
+    ("CROISSANT", "SAINT", "A person celebrated for a holy life."),
+    ("LANGUAGE", "ANGEL", "A heavenly messenger with wings."),
+    ("MYSTERIES", "MERIT", "A quality that deserves praise or reward."),
+    ("NIGHTFALL", "FIGHT", "A clash between opponents."),
+    ("MOUNTAINS", "AMOUNT", "How much of something there is."),
+    ("CHRISTMAS", "CRASH", "A sudden collision, or the noise it makes."),
+    ("DISTANCE", "STAND", "Be on your feet."),
 ]
 
 
@@ -49,7 +49,7 @@ def build_pack():
         _, witness, retained = min(choices, key=lambda choice: choice[0])
         assert witness.verify(source, target)
         puzzles.append({
-            "id": f"wurgery-chunks2-{number:02}", "source": source, "target": target, "clue": clue,
+            "id": f"wurgery-collection3-{number:02}", "source": source, "target": target, "clue": clue,
             "frequency": zipf_frequency(target.lower(), "en"),
             "visual_similarity": round(SequenceMatcher(None, source, target).ratio(), 3),
             "retained_transplanted_letters": retained,

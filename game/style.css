@@ -43,11 +43,8 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .puzzle-label select { appearance: none; -webkit-appearance: none; outline: none; box-shadow: none; border-radius: 0; text-align: center; min-width: 28px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
 .puzzle-label select:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 #puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
-.clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 96px; margin: 16px 0 24px; padding: 0 8px; text-wrap: balance; }
+.clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 82px; margin: 12px 0 12px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
-.instruction { display: flex; align-items: center; justify-content: center; min-height: 36px; margin: 0 0 24px; font-size: 15px; font-weight: 600; }
-.instruction.transplant { color: var(--green); }
-.instruction.excision { color: var(--red); }
 .word-board {
   --count: 11;
   --gap: 6px;
@@ -58,7 +55,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 44px;
+  margin-bottom: 30px;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -69,14 +66,10 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .phase-excision .letter.selected { background: var(--red-soft); border-color: var(--red); box-shadow: 0 8px 16px #bc4f541c; }
 .phase-solved .letter { border-color: var(--green); box-shadow: 0 4px 14px #23895b18; }
 .gap { position: relative; flex: 0 0 var(--gap); width: var(--gap); height: 84px; padding: 0; border: 0; background: transparent; touch-action: none; }
-.scalpel { display: inline-flex; width: min(230px, 72%); height: 86px; align-items: center; justify-content: center; gap: 12px; border: 1.5px dashed #d9a9ad; border-radius: 18px; background: var(--red-soft); color: var(--red); font-size: 15px; font-weight: 650; transition: transform .15s, background .15s; }
-.scalpel-icon { font-size: 26px; }
-.scalpel.locked { background: transparent; opacity: .48; cursor: default; }
-.scalpel.drop-hover { border-style: solid; border-color: var(--red); background: #f4c9cd; transform: scale(1.04); }
+.status:empty { min-height: 0; margin: 0; }
 .status { min-height: 42px; margin: 18px 0 4px; padding: 0 12px; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 1.4; color: var(--muted); max-width: 390px; }
 .status.error { color: var(--red); }
-.status.success { color: var(--green); font-weight: 750; font-size: 19px; }
-.actions { display: flex; justify-content: center; gap: 10px; min-height: 48px; }
+.actions { display: flex; justify-content: center; gap: 10px; min-height: 48px; margin-top: 24px; }
 .pill { background: var(--soft); border: 0; border-radius: 999px; min-width: 122px; height: 48px; padding: 0 20px; font-size: 15px; font-weight: 700; }
 .pill.primary { background: var(--green); color: #fff; }
 .progress { color: var(--muted); opacity: .65; font-size: 11px; margin: 26px 0 0; }
@@ -88,7 +81,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 @media (min-width: 700px) {
   .game { padding-top: clamp(52px, 10svh, 110px); }
   h1 { font-size: 60px; }
-  .clue { margin-bottom: 30px; font-size: 28px; }
+  .clue { margin-bottom: 16px; font-size: 28px; }
   .letter { height: 78px; border-radius: 11px; }
   .word-board { --gap: 8px; min-height: 94px; }
   .gap { height: 94px; }
@@ -96,16 +89,25 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 @media (max-width: 360px) {
   .game { padding-top: max(28px, env(safe-area-inset-top)); }
   h1 { font-size: 44px; }
-  .clue { font-size: 21px; margin-top: 10px; margin-bottom: 20px; }
+  .clue { font-size: 21px; margin-top: 8px; margin-bottom: 12px; }
   .letter { height: 62px; border-radius: 7px; }
 }
 @media (max-height: 700px) {
   .game { padding-top: max(22px, env(safe-area-inset-top)); }
-  .clue { margin-top: 6px; margin-bottom: 14px; min-height: 86px; }
-  .instruction { margin-bottom: 14px; }
-  .scalpel { height: 72px; }
+  .clue { margin-top: 6px; margin-bottom: 10px; min-height: 76px; }
   .status { margin-top: 10px; min-height: 36px; }
   .progress { margin-top: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 .letter.insertion-preview { display: grid; place-items: center; background: var(--green-soft); color: var(--green); opacity: .65; border: 1.5px dashed var(--green); box-shadow: none; pointer-events: none; }
+
+.operation-control { display: inline-flex; width: min(230px, 72%); height: 86px; align-items: center; justify-content: center; border: 1.5px dashed var(--border); border-radius: 18px; color: var(--green); transition: background .15s, border-color .15s; }
+.operation-control.locked { opacity: .45; }
+.operation-control.transplant.ready { border-color: #7db598; background: var(--green-soft); }
+.operation-control.excision.ready { border-color: #d9a9ad; background: var(--red-soft); color: var(--red); }
+.transplant-indicator { display: flex; width: 100%; align-items: center; justify-content: center; gap: 36px; }
+.operation-icon { font-size: 28px; }
+.direction { font-size: 35px; font-weight: 350; line-height: 1; }
+.scalpel { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; border: 0; border-radius: inherit; background: transparent; color: var(--red); }
+.scalpel.drop-hover { background: #f4c9cd; box-shadow: 0 0 0 2px var(--red); }
+@media (max-height: 700px) { .operation-control { height: 72px; } }
