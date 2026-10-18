@@ -138,6 +138,7 @@ function render() {
   $('operation-control').classList.toggle('success', state.phase === 'solved');
   $('reset').textContent = state.phase === 'solved' ? 'Next' : 'Reset';
   $('reset').classList.toggle('primary', state.phase === 'solved');
+  $('reset').disabled = state.phase === 'transplant' && !pendingMove && !selection && !message;
   $('previous').disabled = current === 0;
   $('next').disabled = current === puzzles.length - 1;
   $('puzzle-total').textContent = `/ ${puzzles.length}`;
@@ -310,7 +311,7 @@ $('next').addEventListener('click', () => loadPuzzle(current+1));
 
 
 try {
-  const response = await fetch('./puzzles.json?v=collection3-levels20');
+  const response = await fetch('./puzzles.json?v=collection3-levels30');
   if (!response.ok) throw new Error('The puzzle collection could not be loaded.');
   puzzles = await response.json();
   if (!puzzles.length) throw new Error('The puzzle collection is empty.');

@@ -36,6 +36,16 @@ CHOICES = [
     ("ADVENTURE", "NATURE", "The world beyond what humans have built."),
     ("SAPPHIRE", "SHAPE", "What a silhouette reveals, even without detail."),
     ("TRUMPETS", "TRUST", "It can take years to build and seconds to lose."),
+    ("WATERFALL", "LATER", "The time a procrastinator has in mind."),
+    ("COMPLETE", "TEMPLE", "A place for worship, or the side of your head."),
+    ("MELODIES", "MODELS", "They might pose for a camera or explain a theory."),
+    ("ELSEWHERE", "WHEELS", "They turn a long walk into a shorter journey."),
+    ("CONFUSED", "SECOND", "A tiny wait, or a place just behind the winner."),
+    ("OFFERING", "FINGER", "It can point the way without saying a word."),
+    ("PLATFORM", "FORMAT", "The layout you choose before adding the details."),
+    ("SHOULDER", "SHORE", "Where a long swim finally meets solid ground."),
+    ("PROMISING", "SPRING", "It can launch a toy or signal winter's end."),
+    ("CURRENTLY", "CENTURY", "A milestone for a cricketer or a calendar."),
 ]
 
 

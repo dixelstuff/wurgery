@@ -26,7 +26,8 @@ its local HTML, CSS and JavaScript, with no build step or external services.
 2. Highlight a second chunk of at least two letters. Drag it onto ✂️ or tap
    the scissors to cut. The drop area extends beyond the visible tray, while
    staying below the word. The remaining word must match the clue.
-3. Tap outside the letters to clear a selection. **Reset** always starts the
+3. Tap outside the letters to clear a selection. **Reset** is muted and disabled
+   until there is something to clear. When active, it always starts the
    whole puzzle again, including after a wrong answer. After solving, this same
    button becomes **Next**; after the last puzzle it returns to the first.
    Navigate with the arrows. Solved progress is saved in this browser's local storage.
@@ -44,7 +45,7 @@ a centered game, lavender background, white tiles and simple pill buttons. The
 main screen shows no answer length, chunk-size hints, operation log or tutorial.
 There is no instructions modal.
 
-The collection has 20 puzzles with starting words no longer than nine letters
+The collection has 30 puzzles with starting words no longer than nine letters
 and familiar answers of 5–7 letters, each with a short clue and a verified two-operation
 witness. It never displays a suggested answer or solution before you solve it.
 Any legal sequence to the intended answer that retains at least one transplanted

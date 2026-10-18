@@ -538,5 +538,275 @@
         "destination": null
       }
     }
+  },
+  {
+    "id": "wurgery-collection3-21",
+    "source": "WATERFALL",
+    "target": "LATER",
+    "clue": "The time a procrastinator has in mind.",
+    "frequency": 5.49,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 4,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "WATERFALL",
+        "after": "WFALLATER",
+        "start": 1,
+        "end": 5,
+        "destination": 5
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "WFALLATER",
+        "after": "LATER",
+        "start": 0,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-22",
+    "source": "COMPLETE",
+    "target": "TEMPLE",
+    "clue": "A place for worship, or the side of your head.",
+    "frequency": 4.45,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "COMPLETE",
+        "after": "TECOMPLE",
+        "start": 6,
+        "end": 8,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "TECOMPLE",
+        "after": "TEMPLE",
+        "start": 2,
+        "end": 4,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-23",
+    "source": "MELODIES",
+    "target": "MODELS",
+    "clue": "They might pose for a camera or explain a theory.",
+    "frequency": 4.74,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "MELODIES",
+        "after": "MODELIES",
+        "start": 1,
+        "end": 3,
+        "destination": 3
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "MODELIES",
+        "after": "MODELS",
+        "start": 5,
+        "end": 7,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-24",
+    "source": "ELSEWHERE",
+    "target": "WHEELS",
+    "clue": "They turn a long walk into a shorter journey.",
+    "frequency": 4.25,
+    "visual_similarity": 0.4,
+    "retained_transplanted_letters": 3,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "ELSEWHERE",
+        "after": "WHEELSERE",
+        "start": 4,
+        "end": 7,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "WHEELSERE",
+        "after": "WHEELS",
+        "start": 6,
+        "end": 9,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-25",
+    "source": "CONFUSED",
+    "target": "SECOND",
+    "clue": "A tiny wait, or a place just behind the winner.",
+    "frequency": 5.63,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CONFUSED",
+        "after": "SECONFUD",
+        "start": 5,
+        "end": 7,
+        "destination": 0
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SECONFUD",
+        "after": "SECOND",
+        "start": 5,
+        "end": 7,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-26",
+    "source": "OFFERING",
+    "target": "FINGER",
+    "clue": "It can point the way without saying a word.",
+    "frequency": 4.48,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "OFFERING",
+        "after": "OFFINGER",
+        "start": 3,
+        "end": 5,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "OFFINGER",
+        "after": "FINGER",
+        "start": 0,
+        "end": 2,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-27",
+    "source": "PLATFORM",
+    "target": "FORMAT",
+    "clue": "The layout you choose before adding the details.",
+    "frequency": 4.47,
+    "visual_similarity": 0.571,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "PLATFORM",
+        "after": "PLFORMAT",
+        "start": 2,
+        "end": 4,
+        "destination": 6
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "PLFORMAT",
+        "after": "FORMAT",
+        "start": 0,
+        "end": 2,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-28",
+    "source": "SHOULDER",
+    "target": "SHORE",
+    "clue": "Where a long swim finally meets solid ground.",
+    "frequency": 4.33,
+    "visual_similarity": 0.615,
+    "retained_transplanted_letters": 1,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "SHOULDER",
+        "after": "SHORULDE",
+        "start": 3,
+        "end": 7,
+        "destination": 4
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "SHORULDE",
+        "after": "SHORE",
+        "start": 4,
+        "end": 7,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-29",
+    "source": "PROMISING",
+    "target": "SPRING",
+    "clue": "It can launch a toy or signal winter's end.",
+    "frequency": 4.92,
+    "visual_similarity": 0.667,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "PROMISING",
+        "after": "OMISPRING",
+        "start": 0,
+        "end": 2,
+        "destination": 4
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "OMISPRING",
+        "after": "SPRING",
+        "start": 0,
+        "end": 3,
+        "destination": null
+      }
+    }
+  },
+  {
+    "id": "wurgery-collection3-30",
+    "source": "CURRENTLY",
+    "target": "CENTURY",
+    "clue": "A milestone for a cricketer or a calendar.",
+    "frequency": 5.02,
+    "visual_similarity": 0.625,
+    "retained_transplanted_letters": 2,
+    "solution": {
+      "transplant": {
+        "kind": "transplant",
+        "before": "CURRENTLY",
+        "after": "CENTURRLY",
+        "start": 1,
+        "end": 4,
+        "destination": 4
+      },
+      "excision": {
+        "kind": "excision",
+        "before": "CENTURRLY",
+        "after": "CENTURY",
+        "start": 6,
+        "end": 8,
+        "destination": null
+      }
+    }
   }
 ]
