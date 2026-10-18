@@ -1,4 +1,4 @@
-import {newGame, transplant, excise, textOf} from './model.mjs?v=collection3';
+import {newGame, transplant, excise, textOf} from './model.mjs?v=retained-transplant';
 
 import {transplantPreview, excisionDropContains} from './interaction.mjs?v=caret-move';
 

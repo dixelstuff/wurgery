@@ -46,7 +46,10 @@ There is no instructions modal.
 The collection has 20 puzzles with starting words no longer than nine letters
 and familiar answers of 5–7 letters, each with a short clue and a verified two-operation
 witness. It never displays a suggested answer or solution before you solve it.
-Any legal sequence to the intended answer is accepted. The puzzle data and
+Any legal sequence to the intended answer that retains at least one transplanted
+letter is accepted. Cutting away the entire transplanted chunk cannot solve a
+puzzle. Reset always restores the original word and clears both operations.
+The puzzle data and
 curation script contain spoilers internally; they are not needed to play.
 
 Run the game-rule tests with `node --test tests/game-model.test.mjs` (Node 18+),

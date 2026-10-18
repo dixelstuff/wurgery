@@ -31,7 +31,10 @@ export function excise(state, start, end) {
   const tokens = [...state.tokens.slice(0, start), ...state.tokens.slice(end)];
   if (!tokens.length) throw new Error('Leave some letters on the operating table.');
   const answer = textOf(tokens);
-  return {...state, tokens, phase: answer === state.puzzle.target ? 'solved' : 'incorrect', excision: {
+  // Track original letter identities, so repeated letters cannot disguise
+  // removing the entire transplanted chunk (even inside a larger excision).
+  const retainedTransplant = tokens.some(token => token.id >= state.transplant.start && token.id < state.transplant.end);
+  return {...state, tokens, phase: answer === state.puzzle.target && retainedTransplant ? 'solved' : 'incorrect', excision: {
     start, end, chunk: textOf(state.tokens.slice(start, end)), before: textOf(state.tokens), after: answer
   }};
 }

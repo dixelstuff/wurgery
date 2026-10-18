@@ -50,3 +50,15 @@ test('any legal two-letter-or-longer sequence to the intended answer is accepted
   assert.equal(excise(transplant(newGame(puzzle),0,2,3),5,8).phase, 'solved');
   assert.equal(excise(transplant(newGame(puzzle),2,5,0),5,8).phase, 'solved');
 });
+
+test('removing the whole transplant cannot solve, including within a larger cut', () => {
+  const exact = transplant(newGame({source:'ABCDEFGH',target:'CDEFGH'}),0,2,6);
+  assert.equal(excise(exact,6,8).phase, 'incorrect');
+  const larger = transplant(newGame({source:'ABCDEFGH',target:'ADEFG'}),1,3,6);
+  assert.equal(excise(larger,5,8).phase, 'incorrect');
+  // Equal letter values do not count as keeping the original moved letters.
+  const repeated = transplant(newGame({source:'ABABCD',target:'ABCD'}),0,2,4);
+  assert.equal(excise(repeated,4,6).phase, 'incorrect');
+  const retained = transplant(newGame({source:'ABABCD',target:'CDAB'}),0,2,4);
+  assert.equal(excise(retained,0,2).phase, 'solved');
+});
