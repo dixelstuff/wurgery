@@ -88,6 +88,7 @@ function renderBoard() {
         const next = Math.max(0, Math.min(state.tokens.length - 1, index + (event.key === 'ArrowRight' ? 1 : -1)));
         const anchor = selection?.anchor ?? index;
         selection = {start: Math.min(anchor,next), end: Math.max(anchor,next)+1, anchor};
+        setMessage('');
         render(); board.querySelector(`[data-index="${next}"]`)?.focus();
       }
     });
@@ -113,7 +114,6 @@ function selectByClick(index) {
 
 function render() {
   renderBoard();
-  const cutting = state.phase === 'excision';
   const solvedCount = puzzles.filter(p => solved.has(p.id)).length;
   $('progress').textContent = `${solvedCount} / ${puzzles.length} solved`;
   const finished = ['solved', 'incorrect'].includes(state.phase);
@@ -122,19 +122,21 @@ function render() {
   const transplanting = state.phase === 'transplant';
   const ready = Boolean(validSelection()) && !finished;
   $('operation-control').className = `operation-control ${transplanting ? 'transplant' : 'excision'}${ready ? ' ready' : ' locked'}`;
-  $('operation-control').style.visibility = state.phase === 'solved' ? 'hidden' : 'visible';
   $('transplant-indicator').hidden = !transplanting;
-  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap the forceps to place' : 'Transplant');
+  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap the needle to place' : 'Transplant');
   document.querySelectorAll('.direction').forEach(arrow => { arrow.hidden = !transplanting || !ready; });
   $('move-left').disabled = !ready || selection.start <= 0;
   $('move-right').disabled = !ready || selection.end >= state.tokens.length;
-  $('place-transplant').disabled = !pendingMove || !ready || !availableMove(selection.start);
+  $('place-transplant').disabled = finished;
+  $('place-transplant').classList.toggle('can-place', Boolean(pendingMove && ready && availableMove(selection.start)));
   $('scalpel').hidden = transplanting;
   $('scalpel').className = 'scalpel';
-  $('scalpel').setAttribute('aria-disabled', String(!cutting || !ready));
-  $('status').textContent = state.phase === 'incorrect' ? 'NOPE' : message;
+  $('scalpel').disabled = finished;
+  $('status').textContent = state.phase === 'solved' ? 'Correct!' : state.phase === 'incorrect' ? 'NOPE' : message;
   $('status').className = `status ${messageKind}`;
-  $('operation-control').classList.toggle('has-feedback', state.phase === 'incorrect' || Boolean(message));
+  $('operation-control').classList.toggle('has-feedback', finished || Boolean(message));
+  $('operation-control').classList.toggle('success', state.phase === 'solved');
+  $('reset').disabled = state.phase === 'solved';
   $('previous').disabled = current === 0;
   $('next').disabled = current === puzzles.length - 1;
   $('puzzle-total').textContent = `/ ${puzzles.length}`;
@@ -154,7 +156,7 @@ function commitMove(destination) {
 
 function commitExcision() {
   if (state.phase !== 'excision') return;
-  if (!selection) { setMessage('Select a chunk first.', 'error'); render(); return; }
+  if (!validSelection()) { setMessage('Select 2 or more letters', 'guidance'); render(); return; }
   try {
     state = excise(state, selection.start, selection.end); selection = null;
     if (state.phase === 'solved') {
@@ -281,9 +283,15 @@ document.addEventListener('pointerdown', event => {
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && state) {clearSelection();} });
 $('move-left').addEventListener('click', () => nudgeChunk(-1));
 $('move-right').addEventListener('click', () => nudgeChunk(1));
-$('place-transplant').addEventListener('click', () => { if (pendingMove && validSelection()) commitMove(selection.start); });
+$('place-transplant').addEventListener('click', () => {
+  if (!validSelection()) setMessage('Select 2 or more letters', 'guidance');
+  else if (!pendingMove) setMessage('Drag it or use ‹ ›', 'guidance');
+  else if (!availableMove(selection.start)) setMessage('Move it to a new spot', 'guidance');
+  else { commitMove(selection.start); return; }
+  render();
+});
 $('reset').addEventListener('click', () => loadPuzzle(current));
-$('scalpel').addEventListener('click', () => { if (selection) commitExcision(); });
+$('scalpel').addEventListener('click', commitExcision);
 $('previous').addEventListener('click', () => loadPuzzle(current-1));
 $('next').addEventListener('click', () => loadPuzzle(current+1));
 

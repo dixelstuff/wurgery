@@ -22,7 +22,7 @@ its local HTML, CSS and JavaScript, with no build step or external services.
 1. Highlight at least two neighboring letters by dragging across them, or
    tapping the first and last. Drag the chunk to a new position; a translucent
    preview shows exactly where it will be inserted. Or tap the chevrons to
-   reposition the chunk, then tap the forceps to place it as one transplant.
+   reposition the chunk, then tap the suturing needle to place it as one transplant.
 2. Highlight a second chunk of at least two letters. Drag it onto ✂️ or tap
    the scissors to cut. The drop area extends beyond the visible tray, while
    staying below the word. The remaining word must match the clue.
