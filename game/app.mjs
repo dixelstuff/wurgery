@@ -122,7 +122,7 @@ function render() {
   const transplanting = state.phase === 'transplant';
   const ready = Boolean(validSelection()) && !finished;
   $('operation-control').className = `operation-control ${transplanting ? 'transplant' : 'excision'}${ready ? ' ready' : ' locked'}`;
-  $('operation-control').style.visibility = finished ? 'hidden' : 'visible';
+  $('operation-control').style.visibility = state.phase === 'solved' ? 'hidden' : 'visible';
   $('transplant-indicator').hidden = !transplanting;
   $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap the forceps to place' : 'Transplant');
   document.querySelectorAll('.direction').forEach(arrow => { arrow.hidden = !transplanting || !ready; });
@@ -132,8 +132,9 @@ function render() {
   $('scalpel').hidden = transplanting;
   $('scalpel').className = 'scalpel';
   $('scalpel').setAttribute('aria-disabled', String(!cutting || !ready));
-  $('status').textContent = message;
+  $('status').textContent = state.phase === 'incorrect' ? 'NOPE' : message;
   $('status').className = `status ${messageKind}`;
+  $('operation-control').classList.toggle('has-feedback', state.phase === 'incorrect' || Boolean(message));
   $('next-solved').hidden = state.phase !== 'solved';
   $('next-solved').textContent = current === puzzles.length - 1 ? 'Back to start' : 'Next →';
   $('previous').disabled = current === 0;
@@ -167,7 +168,7 @@ function commitExcision() {
     if (state.phase === 'solved') {
       solved.add(state.puzzle.id); saveProgress();
       setMessage('');
-    } else setMessage('Not quite. Reset and try again.', 'error');
+    } else setMessage('NOPE', 'error');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
 }

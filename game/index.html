@@ -7,8 +7,8 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css?v=caret-move">
-  <script type="module" src="app.mjs?v=caret-move"></script>
+  <link rel="stylesheet" href="style.css?v=steady-feedback">
+  <script type="module" src="app.mjs?v=steady-feedback"></script>
 </head>
 <body>
   <main class="game">
@@ -40,9 +40,9 @@
           <button id="move-right" class="direction" type="button" aria-label="Move selected chunk right" hidden>›</button>
         </div>
         <button id="scalpel" class="scalpel" type="button" aria-label="Excise selected letters" aria-disabled="true" hidden><span class="operation-icon" aria-hidden="true">✂️</span></button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
       </div>
     </section>
-    <div id="status" class="status" role="status" aria-live="polite"></div>
     <div class="actions">
       <button id="reset" class="pill" type="button">Reset</button>
       <button id="next-solved" class="pill primary" type="button" hidden>Next →</button>
