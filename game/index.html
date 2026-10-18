@@ -7,7 +7,7 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css?v=wordmark">
+  <link rel="stylesheet" href="style.css?v=soft-title-nav">
   <script type="module" src="app.mjs?v=next-after-solve"></script>
 </head>
 <body>
@@ -16,9 +16,9 @@
       <h1>Wurgery<svg class="brand-mark" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6 1h4v5h5v4h-5v5H6v-5H1V6h5Z" /></svg></h1>
     </header>
     <nav class="puzzle-nav" aria-label="Puzzle navigation">
-      <button id="previous" type="button" aria-label="Previous puzzle">‹</button>
+      <button id="previous" type="button" aria-label="Previous puzzle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 4-4 4 4 4" /></svg></button>
       <span class="puzzle-label">Puzzle <span id="puzzle-number"></span><span id="puzzle-total"></span><span id="puzzle-completed" class="puzzle-completed" aria-label="Completed" hidden>✓</span></span>
-      <button id="next" type="button" aria-label="Next puzzle">›</button>
+      <button id="next" type="button" aria-label="Next puzzle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 4 4 4-4 4" /></svg></button>
     </nav>
     <p id="clue" class="clue">Loading…</p>
     <section class="play-area" aria-label="Word puzzle">

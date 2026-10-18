@@ -37,15 +37,14 @@ button:focus-visible { outline: 3px solid #8e80bd; outline-offset: 4px; }
 .header { position: relative; width: 100%; }
 .header h1 { display: inline-flex; gap: 8px; }
 .brand-mark { width: 14px; height: 14px; align-self: flex-start; margin-top: 8px; color: var(--green); opacity: .65; flex: none; }
-h1 { font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1.015; font-weight: 700; letter-spacing: -.065em; margin: 0; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1.015; font-weight: 400; letter-spacing: -.065em; color: #51465f; margin: 0; }
 .puzzle-nav { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 12px; color: var(--muted); }
-.puzzle-nav button { width: 44px; height: 44px; background: transparent; border: 0; padding: 0; font-size: 29px; font-weight: 350; }
+.puzzle-nav button { display: grid; place-items: center; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; }
 .puzzle-nav button:disabled { opacity: .22; }
-.puzzle-label { display: flex; align-items: center; gap: 4px; font-size: 16px; }
-.puzzle-label { position: relative; height: 44px; }
+.puzzle-label { position: relative; display: flex; align-items: center; gap: 4px; height: 44px; font-size: 16px; line-height: 1; font-variant-numeric: tabular-nums; }
 #puzzle-number { min-width: 20px; }
 .puzzle-completed { position: absolute; left: calc(100% + 4px); color: var(--green); font-weight: 700; font-size: 13px; }
-#puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
+#puzzle-total { font-size: inherit; margin-left: 1px; }
 .clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 82px; margin: 12px 0 20px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
 .word-board {
