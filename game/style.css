@@ -43,7 +43,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .puzzle-label select { appearance: none; -webkit-appearance: none; outline: none; box-shadow: none; border-radius: 0; text-align: center; min-width: 28px; height: 44px; border: 0; background: transparent; font-size: 16px; cursor: pointer; padding: 0; }
 .puzzle-label select:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 #puzzle-total { font-size: 13px; opacity: .6; margin-left: 1px; }
-.clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 82px; margin: 12px 0 12px; padding: 0 8px; text-wrap: balance; }
+.clue { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; line-height: 1.35; color: var(--ink); width: min(100%, 420px); min-height: 82px; margin: 12px 0 20px; padding: 0 8px; text-wrap: balance; }
 .play-area { width: 100%; }
 .word-board {
   --count: 11;
@@ -81,7 +81,7 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 @media (min-width: 700px) {
   .game { padding-top: clamp(52px, 10svh, 110px); }
   h1 { font-size: 60px; }
-  .clue { margin-bottom: 16px; font-size: 28px; }
+  .clue { margin-bottom: 24px; font-size: 28px; }
   .letter { height: 78px; border-radius: 11px; }
   .word-board { --gap: 8px; min-height: 94px; }
   .gap { height: 94px; }
@@ -89,12 +89,12 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 @media (max-width: 360px) {
   .game { padding-top: max(28px, env(safe-area-inset-top)); }
   h1 { font-size: 44px; }
-  .clue { font-size: 21px; margin-top: 8px; margin-bottom: 12px; }
+  .clue { font-size: 21px; margin-top: 8px; margin-bottom: 20px; }
   .letter { height: 62px; border-radius: 7px; }
 }
 @media (max-height: 700px) {
   .game { padding-top: max(22px, env(safe-area-inset-top)); }
-  .clue { margin-top: 6px; margin-bottom: 10px; min-height: 76px; }
+  .clue { margin-top: 6px; margin-bottom: 18px; min-height: 76px; }
   .status { margin-top: 10px; min-height: 36px; }
   .progress { margin-top: 20px; }
 }
@@ -105,9 +105,18 @@ h1 { font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -.045e
 .operation-control.locked { opacity: .45; }
 .operation-control.transplant.ready { border-color: #7db598; background: var(--green-soft); }
 .operation-control.excision.ready { border-color: #d9a9ad; background: var(--red-soft); color: var(--red); }
-.transplant-indicator { display: flex; width: 100%; align-items: center; justify-content: center; gap: 36px; }
+.transplant-indicator { display: flex; width: 100%; align-items: center; justify-content: center; padding: 0 12px; gap: 8px; }
 .operation-icon { font-size: 28px; }
-.direction { font-size: 35px; font-weight: 350; line-height: 1; }
+.direction { width: 52px; height: 60px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--green); font-size: 35px; font-weight: 350; line-height: 1; }
+.direction:disabled { opacity: .25; }
+.place-transplant { display: grid; place-items: center; width: 48px; height: 60px; padding: 0; border: 0; border-radius: 12px; background: transparent; color: var(--green); }
+.place-transplant:disabled { opacity: .5; }
+.place-transplant:not(:disabled) { background: #c8e6d3; }
+.operation-control.excision { width: min(360px, 100%); height: 116px; }
 .scalpel { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; border: 0; border-radius: inherit; background: transparent; color: var(--red); }
 .scalpel.drop-hover { background: #f4c9cd; box-shadow: 0 0 0 2px var(--red); }
 @media (max-height: 700px) { .operation-control { height: 72px; } }
+
+.operation-control.ready .transplant-indicator { justify-content: space-between; }
+
+.operation-control.locked .place-transplant:disabled { opacity: 1; }

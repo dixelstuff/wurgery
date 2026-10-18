@@ -1,9 +1,12 @@
 import {newGame, transplant, excise, textOf} from './model.mjs?v=collection3';
 
+import {transplantPreview, excisionDropContains} from './interaction.mjs?v=caret-move';
+
 const $ = id => document.getElementById(id);
 const board = $('word-board');
 let puzzles = [], current = 0, state, selection = null, gesture = null, drag = null;
 let solved = new Set();
+let pendingMove = null;
 let message = '', messageKind = '';
 try { solved = new Set(JSON.parse(localStorage.getItem('wurgery-solved-chunks2') || '[]')); } catch {}
 
@@ -14,7 +17,7 @@ function saveProgress() {
 function loadPuzzle(index) {
   cancelGesture();
   current = Math.max(0, Math.min(puzzles.length - 1, index));
-  state = newGame(puzzles[current]); selection = null; message = ''; messageKind = '';
+  state = newGame(puzzles[current]); pendingMove = null; selection = null; message = ''; messageKind = '';
   render();
 }
 
@@ -24,7 +27,11 @@ function validSelection() { return selection && selection.end - selection.start 
 
 function availableMove(destination) {
   if (!selection || state.phase !== 'transplant') return false;
-  try { transplant(state, selection.start, selection.end, destination); return true; } catch { return false; }
+  try {
+    const original = pendingMove?.original ?? state;
+    transplant(original, pendingMove?.start ?? selection.start, pendingMove?.end ?? selection.end, destination);
+    return true;
+  } catch { return false; }
 }
 
 function renderBoard() {
@@ -74,9 +81,10 @@ function renderBoard() {
     // Keyboard-generated clicks have detail 0; pointer selection is handled below.
     letter.addEventListener('click', event => { if (event.detail === 0) selectByClick(index); });
     letter.addEventListener('keydown', event => {
-      if (event.key === 'Escape') { selection = null; render(); }
+      if (event.key === 'Escape') { clearSelection(); }
       if (event.shiftKey && ['ArrowLeft','ArrowRight'].includes(event.key)) {
         event.preventDefault();
+        if (pendingMove) return;
         const next = Math.max(0, Math.min(state.tokens.length - 1, index + (event.key === 'ArrowRight' ? 1 : -1)));
         const anchor = selection?.anchor ?? index;
         selection = {start: Math.min(anchor,next), end: Math.max(anchor,next)+1, anchor};
@@ -89,6 +97,14 @@ function renderBoard() {
 
 function selectByClick(index) {
   if (!['transplant','excision'].includes(state.phase)) return;
+  if (pendingMove) {
+    if (index >= selection.start && index < selection.end) return;
+    const identity = state.tokens[index].id;
+    state = pendingMove.original;
+    pendingMove = null;
+    selection = null;
+    index = state.tokens.findIndex(token => token.id === identity);
+  }
   const anchor = selection?.anchor ?? index;
   selection = {start: Math.min(anchor,index), end: Math.max(anchor,index)+1, anchor};
   setMessage(''); render();
@@ -108,8 +124,11 @@ function render() {
   $('operation-control').className = `operation-control ${transplanting ? 'transplant' : 'excision'}${ready ? ' ready' : ' locked'}`;
   $('operation-control').style.visibility = finished ? 'hidden' : 'visible';
   $('transplant-indicator').hidden = !transplanting;
-  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: drag the chunk left or right' : 'Transplant');
+  $('transplant-indicator').setAttribute('aria-label', ready ? 'Transplant: move the chunk, then tap the forceps to place' : 'Transplant');
   document.querySelectorAll('.direction').forEach(arrow => { arrow.hidden = !transplanting || !ready; });
+  $('move-left').disabled = !ready || selection.start <= 0;
+  $('move-right').disabled = !ready || selection.end >= state.tokens.length;
+  $('place-transplant').disabled = !pendingMove || !ready || !availableMove(selection.start);
   $('scalpel').hidden = transplanting;
   $('scalpel').className = 'scalpel';
   $('scalpel').setAttribute('aria-disabled', String(!cutting || !ready));
@@ -133,7 +152,8 @@ function render() {
 function commitMove(destination) {
   if (!selection) return;
   try {
-    state = transplant(state, selection.start, selection.end, destination);
+    state = transplant(pendingMove?.original ?? state, pendingMove?.start ?? selection.start, pendingMove?.end ?? selection.end, destination);
+    pendingMove = null;
     selection = null; setMessage('');
   } catch (error) { setMessage(error.message, 'error'); }
   render();
@@ -152,6 +172,31 @@ function commitExcision() {
   render();
 }
 
+function clearSelection() {
+  cancelGesture();
+  if (pendingMove) state = pendingMove.original;
+  pendingMove = null;
+  selection = null;
+  setMessage('');
+  render();
+}
+
+function nudgeChunk(direction) {
+  if (state.phase !== 'transplant' || !validSelection()) return;
+  const destination = selection.start + direction;
+  const width = selection.end - selection.start;
+  if (destination < 0 || destination > state.tokens.length - width) return;
+  pendingMove ??= {original: state, start: selection.start, end: selection.end};
+  state = {...pendingMove.original, tokens: transplantPreview(pendingMove.original.tokens, pendingMove.start, pendingMove.end, destination)};
+  selection = {start: destination, end: destination + width, anchor: destination};
+  setMessage('');
+  render();
+}
+
+function overExcisionTray(x, y) {
+  return excisionDropContains(x, y, $('operation-control').getBoundingClientRect(), board.getBoundingClientRect(), window.innerWidth);
+}
+
 function cancelGesture() {
   gesture = null; drag = null;
   $('drag-ghost').hidden = true; $('scalpel').classList.remove('drop-hover');
@@ -161,7 +206,14 @@ board.addEventListener('pointerdown', event => {
   if (event.button !== 0 || !['transplant','excision'].includes(state?.phase)) return;
   const tile = event.target.closest('.letter'); if (!tile) return;
   event.preventDefault();
-  const index = Number(tile.dataset.index);
+  let index = Number(tile.dataset.index);
+  if (pendingMove && (index < selection.start || index >= selection.end)) {
+    const identity = state.tokens[index].id;
+    state = pendingMove.original;
+    pendingMove = null;
+    selection = null;
+    index = state.tokens.findIndex(token => token.id === identity);
+  }
   const inside = validSelection() && index >= selection.start && index < selection.end;
   const anchor = selection?.anchor ?? index;
   const selectedTiles = [...board.querySelectorAll('.letter.selected')];
@@ -211,15 +263,16 @@ board.addEventListener('pointermove', event => {
       renderBoard();
     }
   } else {
-    const rect = $('scalpel').getBoundingClientRect();
-    drag.overTray = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+    drag.overTray = overExcisionTray(event.clientX, event.clientY);
     $('scalpel').classList.toggle('drop-hover', drag.overTray);
   }
 });
 
 board.addEventListener('pointerup', event => {
   if (!gesture || gesture.pointer !== event.pointerId) return;
-  const moveDestination = drag?.destination, cut = drag?.overTray, wasDragging = Boolean(drag);
+  const moveDestination = drag?.destination;
+  const cut = drag && state.phase === 'excision' && overExcisionTray(event.clientX, event.clientY);
+  const wasDragging = Boolean(drag);
   cancelGesture();
   if (board.hasPointerCapture(event.pointerId)) board.releasePointerCapture(event.pointerId);
   if (wasDragging && state.phase === 'transplant' && moveDestination !== null) commitMove(moveDestination);
@@ -229,12 +282,13 @@ board.addEventListener('pointerup', event => {
 board.addEventListener('pointercancel', () => {cancelGesture(); render();});
 document.addEventListener('pointerdown', event => {
   if (!state || !selection || gesture || board.contains(event.target)) return;
-  if (state.phase === 'excision' && event.target.closest('#scalpel')) return;
-  cancelGesture();
-  selection = null;
-  render();
+  if (event.target.closest('#operation-control')) return;
+  clearSelection();
 });
-document.addEventListener('keydown', event => { if (event.key === 'Escape' && state) {cancelGesture(); selection = null; render();} });
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && state) {clearSelection();} });
+$('move-left').addEventListener('click', () => nudgeChunk(-1));
+$('move-right').addEventListener('click', () => nudgeChunk(1));
+$('place-transplant').addEventListener('click', () => { if (pendingMove && validSelection()) commitMove(selection.start); });
 $('reset').addEventListener('click', () => loadPuzzle(current));
 $('scalpel').addEventListener('click', () => { if (selection) commitExcision(); });
 $('previous').addEventListener('click', () => loadPuzzle(current-1));

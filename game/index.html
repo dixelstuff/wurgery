@@ -7,8 +7,8 @@
   <meta name="description" content="A little word surgery. Move some letters, snip some away, and find the word in the clue.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='38' font-size='38'%3E✂️%3C/text%3E%3C/svg%3E">
   <title>Wurgery</title>
-  <link rel="stylesheet" href="style.css?v=collection3">
-  <script type="module" src="app.mjs?v=collection3"></script>
+  <link rel="stylesheet" href="style.css?v=caret-move">
+  <script type="module" src="app.mjs?v=caret-move"></script>
 </head>
 <body>
   <main class="game">
@@ -25,8 +25,9 @@
       <div id="word-board" class="word-board" role="group" aria-label="Puzzle letters"></div>
       <span id="selection-copy" class="sr-only" aria-live="polite"></span>
       <div id="operation-control" class="operation-control transplant locked" role="group" aria-label="Surgery control">
-        <div id="transplant-indicator" class="transplant-indicator" role="status" aria-label="Transplant">
-          <span class="direction" aria-hidden="true" hidden>‹</span>
+        <div id="transplant-indicator" class="transplant-indicator" role="group" aria-label="Transplant">
+          <button id="move-left" class="direction" type="button" aria-label="Move selected chunk left" hidden>‹</button>
+          <button id="place-transplant" class="place-transplant" type="button" aria-label="Place transplant" disabled>
           <svg class="operation-icon" width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="10" cy="8" r="4" />
             <circle cx="30" cy="8" r="4" />
@@ -34,8 +35,9 @@
             <circle cx="20" cy="23" r="1.5" />
             <rect x="17" y="30" width="6" height="8" rx="1" fill="currentColor" fill-opacity=".22" />
           </svg>
+          </button>
           <span class="sr-only">Transplant</span>
-          <span class="direction" aria-hidden="true" hidden>›</span>
+          <button id="move-right" class="direction" type="button" aria-label="Move selected chunk right" hidden>›</button>
         </div>
         <button id="scalpel" class="scalpel" type="button" aria-label="Excise selected letters" aria-disabled="true" hidden><span class="operation-icon" aria-hidden="true">✂️</span></button>
       </div>
